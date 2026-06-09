@@ -1,0 +1,840 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Retreat Survey — 3-Year Comparison</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<style>
+  :root {
+    --c-bg: #f8f7f4;
+    --c-surface: #ffffff;
+    --c-border: #e5e3dc;
+    --c-text: #1a1a18;
+    --c-muted: #6b6a65;
+    --c-accent: #1d4ed8;
+    --c-accent-light: #eff4ff;
+    --c-2024: #1d4ed8;
+    --c-2025: #0f6e56;
+    --c-2026: #993c1d;
+    --c-2024-light: #dbeafe;
+    --c-2025-light: #d1fae5;
+    --c-2026-light: #fee2d0;
+    --radius: 10px;
+    --radius-sm: 6px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: var(--c-bg);
+    color: var(--c-text);
+    font-size: 15px;
+    line-height: 1.6;
+  }
+
+  .page {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 48px 24px 80px;
+  }
+
+  .header {
+    margin-bottom: 48px;
+    border-bottom: 1.5px solid var(--c-text);
+    padding-bottom: 24px;
+  }
+
+  .header-eyebrow {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--c-muted);
+    margin-bottom: 8px;
+  }
+
+  .header h1 {
+    font-size: 32px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.15;
+    margin-bottom: 12px;
+  }
+
+  .header-meta {
+    font-size: 13px;
+    color: var(--c-muted);
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+
+  .year-pills {
+    display: flex;
+    gap: 8px;
+    margin-top: 20px;
+  }
+
+  .pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    font-weight: 600;
+    padding: 4px 10px;
+    border-radius: 20px;
+  }
+
+  .pill-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+  }
+
+  .pill-2024 { background: var(--c-2024-light); color: #1e3a8a; }
+  .pill-2024 .pill-dot { background: var(--c-2024); }
+  .pill-2025 { background: var(--c-2025-light); color: #064e3b; }
+  .pill-2025 .pill-dot { background: var(--c-2025); }
+  .pill-2026 { background: var(--c-2026-light); color: #7c2d12; }
+  .pill-2026 .pill-dot { background: var(--c-2026); }
+
+  .section {
+    margin-bottom: 52px;
+  }
+
+  .section-title {
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--c-muted);
+    margin-bottom: 20px;
+    padding-bottom: 8px;
+    border-bottom: 0.5px solid var(--c-border);
+  }
+
+  .kpi-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin-bottom: 12px;
+  }
+
+  .kpi-card {
+    background: var(--c-surface);
+    border: 0.5px solid var(--c-border);
+    border-radius: var(--radius);
+    padding: 16px 18px;
+  }
+
+  .kpi-label {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--c-muted);
+    margin-bottom: 10px;
+  }
+
+  .kpi-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 5px;
+  }
+
+  .kpi-year {
+    font-size: 12px;
+    color: var(--c-muted);
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+
+  .kpi-year-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  .kpi-value {
+    font-size: 20px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+  }
+
+  .kpi-delta {
+    font-size: 11px;
+    font-weight: 600;
+    padding: 2px 6px;
+    border-radius: 4px;
+  }
+
+  .delta-up { background: #d1fae5; color: #065f46; }
+  .delta-down { background: #fee2e2; color: #991b1b; }
+  .delta-neutral { background: #f3f4f6; color: #4b5563; }
+
+  .chart-card {
+    background: var(--c-surface);
+    border: 0.5px solid var(--c-border);
+    border-radius: var(--radius);
+    padding: 24px;
+    margin-bottom: 16px;
+  }
+
+  .chart-title {
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 4px;
+  }
+
+  .chart-subtitle {
+    font-size: 12px;
+    color: var(--c-muted);
+    margin-bottom: 20px;
+  }
+
+  .chart-wrap {
+    position: relative;
+    width: 100%;
+  }
+
+  .legend {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 16px;
+    flex-wrap: wrap;
+  }
+
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 12px;
+    color: var(--c-muted);
+  }
+
+  .legend-sq {
+    width: 10px;
+    height: 10px;
+    border-radius: 2px;
+    flex-shrink: 0;
+  }
+
+  .tabs {
+    display: flex;
+    gap: 2px;
+    background: var(--c-border);
+    border-radius: var(--radius-sm);
+    padding: 3px;
+    margin-bottom: 24px;
+    width: fit-content;
+  }
+
+  .tab {
+    font-size: 13px;
+    font-weight: 500;
+    padding: 7px 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    border: none;
+    background: transparent;
+    color: var(--c-muted);
+    transition: background 0.15s, color 0.15s;
+  }
+
+  .tab.active {
+    background: var(--c-surface);
+    color: var(--c-text);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+  }
+
+  .tab-panel { display: none; }
+  .tab-panel.active { display: block; }
+
+  .qual-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+
+  .qual-card {
+    background: var(--c-surface);
+    border: 0.5px solid var(--c-border);
+    border-radius: var(--radius);
+    padding: 18px 20px;
+  }
+
+  .qual-card-title {
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 7px;
+  }
+
+  .qual-icon {
+    width: 20px;
+    height: 20px;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    flex-shrink: 0;
+  }
+
+  .icon-up { background: #d1fae5; }
+  .icon-down { background: #fee2e2; }
+  .icon-neutral { background: #f3f4f6; }
+
+  .qual-item {
+    font-size: 13px;
+    color: var(--c-muted);
+    padding: 5px 0;
+    border-bottom: 0.5px solid var(--c-border);
+    line-height: 1.5;
+    display: flex;
+    gap: 8px;
+    align-items: flex-start;
+  }
+
+  .qual-item:last-child { border-bottom: none; }
+
+  .qual-bullet {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: var(--c-muted);
+    flex-shrink: 0;
+    margin-top: 7px;
+  }
+
+  .cost-card {
+    background: var(--c-surface);
+    border: 0.5px solid var(--c-border);
+    border-radius: var(--radius);
+    padding: 24px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 24px;
+    align-items: center;
+  }
+
+  .cost-main {
+    grid-column: 1;
+  }
+
+  .cost-label {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--c-muted);
+    margin-bottom: 4px;
+  }
+
+  .cost-value {
+    font-size: 36px;
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+
+  .cost-sub {
+    font-size: 12px;
+    color: var(--c-muted);
+  }
+
+  .cost-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 13px;
+    font-weight: 600;
+    color: #065f46;
+    background: #d1fae5;
+    padding: 5px 12px;
+    border-radius: 20px;
+    margin-top: 10px;
+  }
+
+  .cost-note {
+    grid-column: 2 / 4;
+    font-size: 12px;
+    color: var(--c-muted);
+    line-height: 1.7;
+    border-left: 2px solid var(--c-border);
+    padding-left: 20px;
+  }
+
+  .response-bar-wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 4px;
+  }
+
+  .response-bar-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 13px;
+  }
+
+  .response-bar-label {
+    width: 36px;
+    font-weight: 600;
+    flex-shrink: 0;
+  }
+
+  .response-bar-track {
+    flex: 1;
+    height: 8px;
+    background: var(--c-border);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+
+  .response-bar-fill {
+    height: 100%;
+    border-radius: 4px;
+    transition: width 0.6s ease;
+  }
+
+  .response-bar-stat {
+    font-size: 12px;
+    color: var(--c-muted);
+    width: 100px;
+    text-align: right;
+    flex-shrink: 0;
+  }
+
+  .notice {
+    font-size: 12px;
+    color: var(--c-muted);
+    background: #fefce8;
+    border: 0.5px solid #fef08a;
+    border-radius: var(--radius-sm);
+    padding: 10px 14px;
+    margin-top: 12px;
+    line-height: 1.6;
+  }
+
+  @media (max-width: 640px) {
+    .kpi-grid { grid-template-columns: 1fr; }
+    .qual-grid { grid-template-columns: 1fr; }
+    .cost-card { grid-template-columns: 1fr; }
+    .cost-note { grid-column: 1; border-left: none; border-top: 0.5px solid var(--c-border); padding-left: 0; padding-top: 16px; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="header">
+    <div class="header-eyebrow">People &amp; Culture · Beefree Retreat</div>
+    <h1>Survey results<br>2024 – 2026</h1>
+    <div class="header-meta">
+      <span>Sardinia 2024 &nbsp;·&nbsp; Punta Umbría 2025 &nbsp;·&nbsp; Oasi di Kufra 2026</span>
+    </div>
+    <div class="year-pills">
+      <span class="pill pill-2024"><span class="pill-dot"></span>2024 Sardinia</span>
+      <span class="pill pill-2025"><span class="pill-dot"></span>2025 Punta Umbría</span>
+      <span class="pill pill-2026"><span class="pill-dot"></span>2026 Oasi di Kufra</span>
+    </div>
+  </div>
+
+  <!-- Response rates -->
+  <div class="section">
+    <div class="section-title">Response rates</div>
+    <div class="chart-card">
+      <div class="response-bar-wrap">
+        <div class="response-bar-row">
+          <span class="response-bar-label">2024</span>
+          <div class="response-bar-track">
+            <div class="response-bar-fill" style="width: 85%; background: var(--c-2024);"></div>
+          </div>
+          <span class="response-bar-stat">101 / 119 — 85%</span>
+        </div>
+        <div class="response-bar-row">
+          <span class="response-bar-label">2025</span>
+          <div class="response-bar-track">
+            <div class="response-bar-fill" style="width: 72%; background: var(--c-2025);"></div>
+          </div>
+          <span class="response-bar-stat">87 / 121 — 72%</span>
+        </div>
+        <div class="response-bar-row">
+          <span class="response-bar-label">2026</span>
+          <div class="response-bar-track">
+            <div class="response-bar-fill" style="width: 68%; background: var(--c-2026);"></div>
+          </div>
+          <span class="response-bar-stat">71 / 104 — 68%</span>
+        </div>
+      </div>
+    </div>
+    <div class="notice">Response rate has been declining year over year. Not alarming, but worth monitoring.</div>
+  </div>
+
+  <!-- KPI snapshot -->
+  <div class="section">
+    <div class="section-title">Score snapshot — comparable dimensions</div>
+    <div class="kpi-grid">
+
+      <div class="kpi-card">
+        <div class="kpi-label">Overall experience</div>
+        <div class="kpi-row">
+          <span class="kpi-year"><span class="kpi-year-dot" style="background:var(--c-2024)"></span>2024</span>
+          <span class="kpi-value" style="color:var(--c-2024)">4.6</span>
+        </div>
+        <div class="kpi-row">
+          <span class="kpi-year"><span class="kpi-year-dot" style="background:var(--c-2025)"></span>2025</span>
+          <span class="kpi-value" style="color:var(--c-2025)">4.6</span>
+        </div>
+        <div class="kpi-row">
+          <span class="kpi-year"><span class="kpi-year-dot" style="background:var(--c-2026)"></span>2026</span>
+          <span class="kpi-value" style="color:var(--c-2026)">4.4</span>
+          <span class="kpi-delta delta-down">−0.2</span>
+        </div>
+      </div>
+
+      <div class="kpi-card">
+        <div class="kpi-label">Travel &amp; logistics</div>
+        <div class="kpi-row">
+          <span class="kpi-year"><span class="kpi-year-dot" style="background:var(--c-2024)"></span>2024</span>
+          <span class="kpi-value" style="color:var(--c-2024)">4.5</span>
+        </div>
+        <div class="kpi-row">
+          <span class="kpi-year"><span class="kpi-year-dot" style="background:var(--c-2025)"></span>2025</span>
+          <span class="kpi-value" style="color:var(--c-2025)">4.2</span>
+        </div>
+        <div class="kpi-row">
+          <span class="kpi-year"><span class="kpi-year-dot" style="background:var(--c-2026)"></span>2026</span>
+          <span class="kpi-value" style="color:var(--c-2026)">4.6</span>
+          <span class="kpi-delta delta-up">+0.4</span>
+        </div>
+      </div>
+
+      <div class="kpi-card">
+        <div class="kpi-label">Accommodation</div>
+        <div class="kpi-row">
+          <span class="kpi-year"><span class="kpi-year-dot" style="background:var(--c-2024)"></span>2024</span>
+          <span class="kpi-value" style="color:var(--c-2024)">4.8</span>
+        </div>
+        <div class="kpi-row">
+          <span class="kpi-year"><span class="kpi-year-dot" style="background:var(--c-2025)"></span>2025</span>
+          <span class="kpi-value" style="color:var(--c-2025)">4.4</span>
+        </div>
+        <div class="kpi-row">
+          <span class="kpi-year"><span class="kpi-year-dot" style="background:var(--c-2026)"></span>2026</span>
+          <span class="kpi-value" style="color:var(--c-2026)">4.4</span>
+          <span class="kpi-delta delta-neutral">= </span>
+        </div>
+      </div>
+
+      <div class="kpi-card">
+        <div class="kpi-label">Meals</div>
+        <div class="kpi-row">
+          <span class="kpi-year"><span class="kpi-year-dot" style="background:var(--c-2024)"></span>2024</span>
+          <span class="kpi-value" style="color:var(--c-2024)">4.2</span>
+        </div>
+        <div class="kpi-row">
+          <span class="kpi-year"><span class="kpi-year-dot" style="background:var(--c-2025)"></span>2025</span>
+          <span class="kpi-value" style="color:var(--c-2025)">3.0</span>
+        </div>
+        <div class="kpi-row">
+          <span class="kpi-year"><span class="kpi-year-dot" style="background:var(--c-2026)"></span>2026</span>
+          <span class="kpi-value" style="color:var(--c-2026)">2.9</span>
+          <span class="kpi-delta delta-down">−0.1</span>
+        </div>
+      </div>
+
+      <div class="kpi-card">
+        <div class="kpi-label">Internal communication</div>
+        <div class="kpi-row">
+          <span class="kpi-year"><span class="kpi-year-dot" style="background:var(--c-2024)"></span>2024</span>
+          <span class="kpi-value" style="color:var(--c-2024)">4.7</span>
+        </div>
+        <div class="kpi-row">
+          <span class="kpi-year"><span class="kpi-year-dot" style="background:var(--c-2025)"></span>2025</span>
+          <span class="kpi-value" style="color:var(--c-2025)">4.7</span>
+        </div>
+        <div class="kpi-row">
+          <span class="kpi-year"><span class="kpi-year-dot" style="background:var(--c-2026)"></span>2026</span>
+          <span class="kpi-value" style="color:var(--c-2026)">4.9</span>
+          <span class="kpi-delta delta-up">+0.2</span>
+        </div>
+      </div>
+
+      <div class="kpi-card">
+        <div class="kpi-label">New connections</div>
+        <div class="kpi-row">
+          <span class="kpi-year"><span class="kpi-year-dot" style="background:var(--c-2024)"></span>2024</span>
+          <span class="kpi-value" style="color:var(--c-2024)">4.3</span>
+        </div>
+        <div class="kpi-row">
+          <span class="kpi-year"><span class="kpi-year-dot" style="background:var(--c-2025)"></span>2025</span>
+          <span class="kpi-value" style="color:var(--c-2025)">4.5</span>
+        </div>
+        <div class="kpi-row">
+          <span class="kpi-year"><span class="kpi-year-dot" style="background:var(--c-2026)"></span>2026</span>
+          <span class="kpi-value" style="color:var(--c-2026)">4.1</span>
+          <span class="kpi-delta delta-down">−0.4</span>
+        </div>
+      </div>
+
+      <div class="kpi-card">
+        <div class="kpi-label">United &amp; collaborative</div>
+        <div class="kpi-row">
+          <span class="kpi-year"><span class="kpi-year-dot" style="background:var(--c-2024)"></span>2024</span>
+          <span class="kpi-value" style="color:var(--c-2024)">4.3</span>
+        </div>
+        <div class="kpi-row">
+          <span class="kpi-year"><span class="kpi-year-dot" style="background:var(--c-2025)"></span>2025</span>
+          <span class="kpi-value" style="color:var(--c-2025)">4.4</span>
+        </div>
+        <div class="kpi-row">
+          <span class="kpi-year"><span class="kpi-year-dot" style="background:var(--c-2026)"></span>2026</span>
+          <span class="kpi-value" style="color:var(--c-2026)">3.9</span>
+          <span class="kpi-delta delta-down">−0.5</span>
+        </div>
+      </div>
+
+      <div class="kpi-card">
+        <div class="kpi-label">Sense of direction</div>
+        <div class="kpi-row">
+          <span class="kpi-year"><span class="kpi-year-dot" style="background:var(--c-2024)"></span>2024</span>
+          <span class="kpi-value" style="color: var(--c-muted); font-size:14px;">n/a</span>
+        </div>
+        <div class="kpi-row">
+          <span class="kpi-year"><span class="kpi-year-dot" style="background:var(--c-2025)"></span>2025</span>
+          <span class="kpi-value" style="color:var(--c-2025)">4.1</span>
+        </div>
+        <div class="kpi-row">
+          <span class="kpi-year"><span class="kpi-year-dot" style="background:var(--c-2026)"></span>2026</span>
+          <span class="kpi-value" style="color:var(--c-2026)">3.4</span>
+          <span class="kpi-delta delta-down">−0.7</span>
+        </div>
+      </div>
+
+      <div class="kpi-card">
+        <div class="kpi-label">Theme mindset reinforced</div>
+        <div class="kpi-row">
+          <span class="kpi-year"><span class="kpi-year-dot" style="background:var(--c-2024)"></span>2024</span>
+          <span class="kpi-value" style="color: var(--c-muted); font-size:14px;">n/a</span>
+        </div>
+        <div class="kpi-row">
+          <span class="kpi-year"><span class="kpi-year-dot" style="background:var(--c-2025)"></span>2025</span>
+          <span class="kpi-value" style="color:var(--c-2025)">4.3</span>
+        </div>
+        <div class="kpi-row">
+          <span class="kpi-year"><span class="kpi-year-dot" style="background:var(--c-2026)"></span>2026</span>
+          <span class="kpi-value" style="color:var(--c-2026)">3.7</span>
+          <span class="kpi-delta delta-down">−0.6</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Radar / bar chart -->
+  <div class="section">
+    <div class="section-title">Visual comparison</div>
+
+    <div style="display: flex; gap: 2px; background: var(--c-border); border-radius: 7px; padding: 3px; width: fit-content; margin-bottom: 20px;">
+      <button class="tab active" onclick="switchChart('bar', this)">Bar chart</button>
+      <button class="tab" onclick="switchChart('radar', this)">Radar</button>
+    </div>
+
+    <div class="chart-card">
+      <div class="legend">
+        <span class="legend-item"><span class="legend-sq" style="background:var(--c-2024)"></span>2024 Sardinia</span>
+        <span class="legend-item"><span class="legend-sq" style="background:var(--c-2025)"></span>2025 Punta Umbría</span>
+        <span class="legend-item"><span class="legend-sq" style="background:var(--c-2026)"></span>2026 Oasi di Kufra</span>
+      </div>
+      <div id="barWrap" class="chart-wrap" style="height: 340px;">
+        <canvas id="barChart" role="img" aria-label="Grouped bar chart comparing survey scores across 2024, 2025 and 2026 for key dimensions">Scores comparison across three retreat years.</canvas>
+      </div>
+      <div id="radarWrap" class="chart-wrap" style="height: 340px; display: none;">
+        <canvas id="radarChart" role="img" aria-label="Radar chart comparing survey scores across 2024, 2025 and 2026">Radar comparison of retreat survey scores.</canvas>
+      </div>
+    </div>
+    <div class="notice">Dimensions where 2024 data was not collected are excluded from the radar view.</div>
+  </div>
+
+  <!-- Sessions -->
+  <div class="section">
+    <div class="section-title">Session format scores (directional — formats change each year)</div>
+    <div class="chart-card">
+      <div class="chart-subtitle">2025 vs 2026 only — session names differ too much from 2024 for direct comparison</div>
+      <div class="legend">
+        <span class="legend-item"><span class="legend-sq" style="background:var(--c-2025)"></span>2025</span>
+        <span class="legend-item"><span class="legend-sq" style="background:var(--c-2026)"></span>2026</span>
+      </div>
+      <div class="chart-wrap" style="height: 260px;">
+        <canvas id="sessionsChart" role="img" aria-label="Bar chart comparing session ratings between 2025 and 2026">Session scores 2025 vs 2026.</canvas>
+      </div>
+    </div>
+  </div>
+
+  <!-- Qualitative -->
+  <div class="section">
+    <div class="section-title">Qualitative trends</div>
+    <div class="qual-grid">
+
+      <div class="qual-card">
+        <div class="qual-card-title">
+          <span class="qual-icon icon-up">↑</span>
+          Getting better over time
+        </div>
+        <div class="qual-item"><span class="qual-bullet"></span>Logistics and operations — consistently praised, praise getting louder each year. Real institutional knowledge built.</div>
+        <div class="qual-item"><span class="qual-bullet"></span>Agenda format — each year more participant-driven, less frontal. 2026 hands-on sessions among highest-rated elements.</div>
+        <div class="qual-item"><span class="qual-bullet"></span>Pacing — less "busy for the sake of being busy," more intentional use of unstructured time.</div>
+        <div class="qual-item"><span class="qual-bullet"></span>Internal communication — highest-ever score in 2026 (4.9). Consistent improvement across all three years.</div>
+      </div>
+
+      <div class="qual-card">
+        <div class="qual-card-title">
+          <span class="qual-icon icon-down">↓</span>
+          Persistent challenges
+        </div>
+        <div class="qual-item"><span class="qual-bullet"></span>Food — low for two years running (3.0 in 2025, 2.9 in 2026). Worth weighting more heavily in venue selection.</div>
+        <div class="qual-item"><span class="qual-bullet"></span>Team Time — flagged in both 2025 and 2026 as underdelivering due to lack of preparation and scope clarity.</div>
+        <div class="qual-item"><span class="qual-bullet"></span>Strategic follow-through — people leave energized, but retreat themes don't always land in the day-to-day. Concern has intensified in 2026.</div>
+      </div>
+
+      <div class="qual-card" style="grid-column: 1 / -1;">
+        <div class="qual-card-title">
+          <span class="qual-icon icon-neutral">!</span>
+          New in 2026
+        </div>
+        <div class="qual-item"><span class="qual-bullet"></span>Organizational context — the restructuring created a backdrop of uncertainty that affected how people experienced the content. Some felt it wasn't acknowledged openly enough. The dip in "sense of direction" (3.4) and "theme mindset reinforced" (3.7) scores is likely connected.</div>
+        <div class="qual-item"><span class="qual-bullet"></span>Connection and cohesion scores are slightly lower than previous years — consistent with qualitative signals around lower energy and the weight of change.</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Cost -->
+  <div class="section">
+    <div class="section-title">Cost — 2026</div>
+    <div class="cost-card">
+      <div class="cost-main">
+        <div class="cost-label">Total spend</div>
+        <div class="cost-value">€190,295</div>
+        <div class="cost-sub">~€1,900 / person · VAT excluded</div>
+        <div class="cost-badge">↓ 15% vs 2025</div>
+      </div>
+      <div class="cost-note">
+        Numbers are still under review by accounting and controlling — treat them as directional for now.<br><br>
+        The 15% reduction vs 2025 is adjusted for the number of participants. It reflects deliberate choices around venue, travel setup, and overall structure. Final figures will be confirmed once accounting closes.
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+const labels = ['Overall experience', 'Travel', 'Accommodation', 'Meals', 'Communication', 'New connections', 'United / collaborative'];
+const d2024 = [4.6, 4.5, 4.8, 4.2, 4.7, 4.3, 4.3];
+const d2025 = [4.6, 4.2, 4.4, 3.0, 4.7, 4.5, 4.4];
+const d2026 = [4.4, 4.6, 4.4, 2.9, 4.9, 4.1, 3.9];
+
+const c2024 = '#1d4ed8';
+const c2025 = '#0f6e56';
+const c2026 = '#993c1d';
+const c2024a = 'rgba(29,78,216,0.15)';
+const c2025a = 'rgba(15,110,86,0.15)';
+const c2026a = 'rgba(153,60,29,0.15)';
+
+const barCtx = document.getElementById('barChart').getContext('2d');
+const barChart = new Chart(barCtx, {
+  type: 'bar',
+  data: {
+    labels,
+    datasets: [
+      { label: '2024 Sardinia', data: d2024, backgroundColor: c2024, borderRadius: 3 },
+      { label: '2025 Punta Umbría', data: d2025, backgroundColor: c2025, borderRadius: 3 },
+      { label: '2026 Oasi di Kufra', data: d2026, backgroundColor: c2026, borderRadius: 3 },
+    ]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: { legend: { display: false } },
+    scales: {
+      y: { min: 1, max: 5, ticks: { stepSize: 1, font: { size: 11 } }, grid: { color: '#e5e3dc' } },
+      x: { ticks: { font: { size: 11 }, autoSkip: false, maxRotation: 30 }, grid: { display: false } }
+    }
+  }
+});
+
+const radarCtx = document.getElementById('radarChart').getContext('2d');
+const radarChart = new Chart(radarCtx, {
+  type: 'radar',
+  data: {
+    labels,
+    datasets: [
+      { label: '2024', data: d2024, borderColor: c2024, backgroundColor: c2024a, pointBackgroundColor: c2024, borderWidth: 2 },
+      { label: '2025', data: d2025, borderColor: c2025, backgroundColor: c2025a, pointBackgroundColor: c2025, borderWidth: 2 },
+      { label: '2026', data: d2026, borderColor: c2026, backgroundColor: c2026a, pointBackgroundColor: c2026, borderWidth: 2 },
+    ]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: { legend: { display: false } },
+    scales: {
+      r: {
+        min: 1, max: 5, ticks: { stepSize: 1, font: { size: 10 }, backdropColor: 'transparent' },
+        pointLabels: { font: { size: 11 } },
+        grid: { color: '#e5e3dc' }
+      }
+    }
+  }
+});
+
+const sessionLabels = ['Opening / interludes', 'Main working sessions', 'Team Time', 'Exploration / Unconference', 'Engagement activities'];
+const s2025 = [4.3, 4.2, 4.3, 4.4, 4.8];
+const s2026 = [3.8, 4.3, 4.1, 4.1, 4.6];
+
+const sessCtx = document.getElementById('sessionsChart').getContext('2d');
+new Chart(sessCtx, {
+  type: 'bar',
+  data: {
+    labels: sessionLabels,
+    datasets: [
+      { label: '2025 Punta Umbría', data: s2025, backgroundColor: c2025, borderRadius: 3 },
+      { label: '2026 Oasi di Kufra', data: s2026, backgroundColor: c2026, borderRadius: 3 },
+    ]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: { legend: { display: false } },
+    scales: {
+      y: { min: 1, max: 5, ticks: { stepSize: 1, font: { size: 11 } }, grid: { color: '#e5e3dc' } },
+      x: { ticks: { font: { size: 11 }, autoSkip: false, maxRotation: 20 }, grid: { display: false } }
+    }
+  }
+});
+
+function switchChart(type, btn) {
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  btn.classList.add('active');
+  if (type === 'bar') {
+    document.getElementById('barWrap').style.display = 'block';
+    document.getElementById('radarWrap').style.display = 'none';
+  } else {
+    document.getElementById('barWrap').style.display = 'none';
+    document.getElementById('radarWrap').style.display = 'block';
+  }
+}
+</script>
+</body>
+</html>
