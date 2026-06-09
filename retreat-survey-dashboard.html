@@ -671,13 +671,14 @@
   <div class="section">
     <div class="section-title">Session format scores (directional — formats change each year)</div>
     <div class="chart-card">
-      <div class="chart-subtitle">2025 vs 2026 only — session names differ too much from 2024 for direct comparison</div>
+      <div class="chart-subtitle">Overall agenda is comparable across all three years. Individual session formats differ too much from 2024 for direct comparison — shown for 2025 vs 2026 only.</div>
       <div class="legend">
+        <span class="legend-item"><span class="legend-sq" style="background:var(--c-2024)"></span>2024</span>
         <span class="legend-item"><span class="legend-sq" style="background:var(--c-2025)"></span>2025</span>
         <span class="legend-item"><span class="legend-sq" style="background:var(--c-2026)"></span>2026</span>
       </div>
-      <div class="chart-wrap" style="height: 260px;">
-        <canvas id="sessionsChart" role="img" aria-label="Bar chart comparing session ratings between 2025 and 2026">Session scores 2025 vs 2026.</canvas>
+      <div class="chart-wrap" style="height: 300px;">
+        <canvas id="sessionsChart" role="img" aria-label="Bar chart comparing session ratings across years">Session scores across years.</canvas>
       </div>
     </div>
   </div>
@@ -799,9 +800,10 @@ const radarChart = new Chart(radarCtx, {
   }
 });
 
-const sessionLabels = ['Opening / interludes', 'Main working sessions', 'Team Time', 'Exploration / Unconference', 'Engagement activities'];
-const s2025 = [4.3, 4.2, 4.3, 4.4, 4.8];
-const s2026 = [3.8, 4.3, 4.1, 4.1, 4.6];
+const sessionLabels = ['Overall agenda ★', 'Opening / interludes', 'Main working sessions', 'Team Time', 'Exploration / Unconference', 'Engagement activities'];
+const s2024 = [4.0, null, null, null, null, null];
+const s2025 = [4.5, 4.3, 4.2, 4.3, 4.4, 4.8];
+const s2026 = [4.1, 3.8, 4.3, 4.1, 4.1, 4.6];
 
 const sessCtx = document.getElementById('sessionsChart').getContext('2d');
 new Chart(sessCtx, {
@@ -809,6 +811,7 @@ new Chart(sessCtx, {
   data: {
     labels: sessionLabels,
     datasets: [
+      { label: '2024 Sardinia', data: s2024, backgroundColor: c2024, borderRadius: 3 },
       { label: '2025 Punta Umbría', data: s2025, backgroundColor: c2025, borderRadius: 3 },
       { label: '2026 Oasi di Kufra', data: s2026, backgroundColor: c2026, borderRadius: 3 },
     ]
