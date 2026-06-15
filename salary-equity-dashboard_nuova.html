@@ -1,0 +1,1204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Salary Equity & Gender Pay Gap Dashboard</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<style>
+
+</style>
+
+
+  :root {
+    --bg: #F7F6F2;
+    --surface: #FFFFFF;
+    --surface-alt: #F0EEE9;
+    --border: #E2DED6;
+    --text-primary: #1A1916;
+    --text-secondary: #6B6760;
+    --text-muted: #9E9B96;
+    --accent: #2D5BE3;
+    --accent-light: #EBF0FD;
+    --male: #3B6FE8;
+    --male-light: #C7D8FC;
+    --female: #E8507A;
+    --female-light: #FCD0DC;
+    --gap-positive: #D64B2A;
+    --gap-negative: #2A9D5C;
+    --gap-neutral: #6B6760;
+    --warning: #F59E0B;
+    --radius: 12px;
+    --radius-sm: 8px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--bg);
+    color: var(--text-primary);
+    line-height: 1.5;
+    font-size: 14px;
+  }
+
+  /* HEADER */
+  .header {
+    background: var(--text-primary);
+    color: #F7F6F2;
+    padding: 48px 40px 40px;
+  }
+  .header-inner { max-width: 1100px; margin: 0 auto; }
+  .header-eyebrow {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #9E9B96;
+    margin-bottom: 12px;
+  }
+  .header h1 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 42px;
+    font-weight: 400;
+    line-height: 1.15;
+    margin-bottom: 16px;
+    color: #F7F6F2;
+  }
+  .header h1 em { font-style: italic; color: #8BA8F5; }
+  .header-meta {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    font-size: 12px;
+    color: #9E9B96;
+    margin-top: 20px;
+    flex-wrap: wrap;
+  }
+  .header-meta span { display: flex; align-items: center; gap: 6px; }
+
+  /* COMMITMENT */
+  .commitment {
+    background: var(--accent-light);
+    border-left: 3px solid var(--accent);
+    padding: 20px 24px;
+    margin: 32px 0 0;
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+    font-size: 13px;
+    color: var(--text-secondary);
+    max-width: 720px;
+    line-height: 1.6;
+  }
+
+  /* MAIN LAYOUT */
+  .main { max-width: 1100px; margin: 0 auto; padding: 40px; }
+
+  /* GEO TOGGLE */
+  .geo-toggle-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 40px;
+  }
+  .geo-toggle-label {
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--text-muted);
+  }
+  .geo-toggle {
+    display: flex;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    padding: 4px;
+    gap: 2px;
+  }
+  .geo-btn {
+    padding: 7px 18px;
+    border-radius: 999px;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text-secondary);
+    font-family: 'Inter', sans-serif;
+    transition: all 0.15s;
+  }
+  .geo-btn.active {
+    background: var(--text-primary);
+    color: #F7F6F2;
+  }
+  .geo-btn:hover:not(.active) { background: var(--surface-alt); }
+
+  /* SECTION */
+  .section { margin-bottom: 56px; }
+  .section-header {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    margin-bottom: 24px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--border);
+  }
+  .section-number {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    color: var(--text-muted);
+    text-transform: uppercase;
+  }
+  .section-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: 22px;
+    font-weight: 400;
+    color: var(--text-primary);
+  }
+
+  /* CARDS */
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 24px;
+  }
+  .card-title {
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--text-muted);
+    margin-bottom: 16px;
+  }
+
+  /* GRID LAYOUTS */
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+  .grid-auto { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; }
+
+  /* STAT CARDS */
+  .stat-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 24px;
+  }
+  .stat-label { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-muted); margin-bottom: 10px; }
+  .stat-value { font-family: 'DM Serif Display', serif; font-size: 36px; color: var(--text-primary); line-height: 1; margin-bottom: 6px; }
+  .stat-sub { font-size: 12px; color: var(--text-secondary); }
+
+  /* GENDER BAR */
+  .gender-bar-wrap { margin-top: 16px; }
+  .gender-bar-track {
+    height: 10px;
+    border-radius: 999px;
+    background: var(--female-light);
+    overflow: hidden;
+    margin-bottom: 8px;
+  }
+  .gender-bar-fill {
+    height: 100%;
+    border-radius: 999px;
+    background: var(--male);
+    transition: width 0.4s ease;
+  }
+  .gender-bar-legend {
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+  }
+  .legend-m { color: var(--male); font-weight: 600; }
+  .legend-f { color: var(--female); font-weight: 600; }
+
+  /* HORIZONTAL BAR CHARTS */
+  .hbar-chart { display: flex; flex-direction: column; gap: 10px; }
+  .hbar-row { display: flex; align-items: center; gap: 12px; }
+  .hbar-label { font-size: 12px; color: var(--text-secondary); width: 180px; flex-shrink: 0; line-height: 1.3; }
+  .hbar-track {
+    flex: 1;
+    height: 28px;
+    background: var(--surface-alt);
+    border-radius: 4px;
+    overflow: hidden;
+    display: flex;
+  }
+  .hbar-m { background: var(--male); height: 100%; transition: width 0.4s; }
+  .hbar-f { background: var(--female); height: 100%; transition: width 0.4s; }
+  .hbar-value { font-size: 12px; font-weight: 600; color: var(--text-secondary); width: 48px; text-align: right; flex-shrink: 0; }
+
+  /* PAY TABLE */
+  .pay-table { width: 100%; border-collapse: collapse; }
+  .pay-table th {
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    color: var(--text-muted);
+    text-align: left;
+    padding: 8px 12px;
+    border-bottom: 1px solid var(--border);
+  }
+  .pay-table th.right { text-align: right; }
+  .pay-table td {
+    padding: 11px 12px;
+    border-bottom: 1px solid var(--surface-alt);
+    font-size: 13px;
+  }
+  .pay-table tr:last-child td { border-bottom: none; }
+  .pay-table tr:hover td { background: var(--surface-alt); }
+  .grade-label { font-weight: 500; }
+  .grade-count { font-size: 11px; color: var(--text-muted); margin-top: 2px; }
+  .salary-cell { text-align: right; font-variant-numeric: tabular-nums; }
+  .salary-m { color: var(--male); font-weight: 500; }
+  .salary-f { color: var(--female); font-weight: 500; }
+  .salary-na { color: var(--text-muted); font-style: italic; }
+  .gap-cell { text-align: right; font-weight: 600; font-variant-numeric: tabular-nums; }
+  .gap-positive { color: var(--gap-positive); }
+  .gap-negative { color: var(--gap-negative); }
+  .gap-neutral { color: var(--gap-neutral); }
+  .gap-na { color: var(--text-muted); font-weight: 400; font-style: italic; }
+
+  .note-inline {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 11px;
+    color: var(--warning);
+    font-weight: 500;
+    cursor: help;
+    margin-left: 6px;
+  }
+
+  /* QUARTILE CHART */
+  .quartile-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+  .quartile-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 20px;
+    text-align: center;
+  }
+  .quartile-label { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.07em; color: var(--text-muted); margin-bottom: 16px; }
+  .quartile-bar-wrap { display: flex; height: 100px; align-items: flex-end; justify-content: center; gap: 8px; margin-bottom: 12px; }
+  .quartile-bar { width: 32px; border-radius: 4px 4px 0 0; transition: height 0.4s ease; position: relative; }
+  .qbar-m { background: var(--male); }
+  .qbar-f { background: var(--female); }
+  .quartile-counts { display: flex; justify-content: center; gap: 12px; font-size: 12px; }
+  .qcount-m { color: var(--male); font-weight: 600; }
+  .qcount-f { color: var(--female); font-weight: 600; }
+  .quartile-pct { font-size: 11px; color: var(--text-muted); margin-top: 4px; }
+
+  /* PROMOTION */
+  .promo-visual { display: flex; gap: 32px; align-items: center; }
+  .promo-item { flex: 1; }
+  .promo-gender-label { font-size: 12px; font-weight: 600; margin-bottom: 10px; }
+  .promo-gender-label.male { color: var(--male); }
+  .promo-gender-label.female { color: var(--female); }
+  .promo-track { height: 12px; background: var(--surface-alt); border-radius: 999px; overflow: hidden; margin-bottom: 8px; }
+  .promo-fill-m { background: var(--male); height: 100%; border-radius: 999px; transition: width 0.4s; }
+  .promo-fill-f { background: var(--female); height: 100%; border-radius: 999px; transition: width 0.4s; }
+  .promo-stat { font-family: 'DM Serif Display', serif; font-size: 28px; }
+  .promo-sub { font-size: 12px; color: var(--text-secondary); }
+
+  /* NOTES */
+  .notes-block {
+    background: var(--surface-alt);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 24px;
+    margin-top: 20px;
+  }
+  .notes-title { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-muted); margin-bottom: 12px; }
+  .notes-list { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+  .notes-list li { font-size: 12px; color: var(--text-secondary); line-height: 1.6; padding-left: 16px; position: relative; }
+  .notes-list li::before { content: '—'; position: absolute; left: 0; color: var(--text-muted); }
+
+  /* LEGEND */
+  .legend-row { display: flex; gap: 20px; margin-bottom: 16px; flex-wrap: wrap; }
+  .legend-item { display: flex; align-items: center; gap: 6px; font-size: 12px; color: var(--text-secondary); }
+  .legend-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+  .legend-dot-m { background: var(--male); }
+  .legend-dot-f { background: var(--female); }
+
+  /* IT notice */
+  .single-gender-notice {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    background: #FFF8ED;
+    border: 1px solid #F6D786;
+    border-radius: var(--radius-sm);
+    padding: 12px 16px;
+    font-size: 12px;
+    color: #92621A;
+    margin-top: 12px;
+  }
+
+  /* FOOTER */
+  .footer {
+    background: var(--text-primary);
+    color: var(--text-muted);
+    padding: 32px 40px;
+    font-size: 12px;
+    line-height: 1.7;
+    margin-top: 40px;
+  }
+  .footer-inner { max-width: 1100px; margin: 0 auto; }
+  .footer-title { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: #9E9B96; margin-bottom: 12px; }
+  .footer-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; }
+
+  /* GEO VISIBILITY */
+  .geo-view { display: none; }
+  .geo-view.visible { display: contents; }
+
+  /* RESPONSIVE */
+  @media (max-width: 768px) {
+    .main { padding: 24px 16px; }
+    .header { padding: 32px 16px 28px; }
+    .header h1 { font-size: 28px; }
+    .grid-2, .grid-3 { grid-template-columns: 1fr; }
+    .quartile-grid { grid-template-columns: repeat(2, 1fr); }
+    .footer-grid { grid-template-columns: 1fr; }
+    .hbar-label { width: 120px; font-size: 11px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+  <div class="header-inner">
+    <div class="header-eyebrow">Growens Group · People & Culture</div>
+    <h1>Salary Equity &<br><em>Gender Pay Gap</em> Dashboard</h1>
+    <div class="commitment">
+      Our commitment to transparency means sharing data openly — including where gaps exist and where we still have work to do. Equity starts with information, and this dashboard is our shared foundation for honest conversations about pay, representation, and opportunity.
+    </div>
+    <div class="header-meta">
+      <span>📅 Data as of June 15, 2026</span>
+      <span>👥 143 employees</span>
+      <span>🌍 Europe + North America</span>
+      <span>🔄 Next update: December 2026</span>
+    </div>
+  </div>
+</div>
+
+<!-- MAIN -->
+<div class="main">
+
+  <!-- GEO TOGGLE -->
+  <div class="geo-toggle-wrapper">
+    <span class="geo-toggle-label">View</span>
+    <div class="geo-toggle">
+      <button class="geo-btn active" onclick="setGeo('global')">🌍 Global</button>
+      <button class="geo-btn" onclick="setGeo('europe')">🇪🇺 Europe</button>
+      <button class="geo-btn" onclick="setGeo('northamerica')">🇺🇸 North America</button>
+    </div>
+  </div>
+
+
+  <!-- ==============================
+       SECTION 1: WORKFORCE COMPOSITION
+       ============================== -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-number">01</span>
+      <span class="section-title">Workforce Composition</span>
+    </div>
+
+    <div class="grid-3">
+      <!-- Global -->
+      <div class="stat-card geo-content" data-geo="global">
+        <div class="stat-label">Total Employees</div>
+        <div class="stat-value">143</div>
+        <div class="stat-sub">Across all geographies</div>
+        <div class="gender-bar-wrap">
+          <div class="gender-bar-track">
+            <div class="gender-bar-fill" style="width: 64.3%"></div>
+          </div>
+          <div class="gender-bar-legend">
+            <span class="legend-m">♂ 92 men (64.3%)</span>
+            <span class="legend-f">51 women (35.7%) ♀</span>
+          </div>
+        </div>
+      </div>
+      <div class="stat-card geo-content" data-geo="global">
+        <div class="stat-label">Europe</div>
+        <div class="stat-value">119</div>
+        <div class="stat-sub">83.2% of total workforce</div>
+        <div class="gender-bar-wrap">
+          <div class="gender-bar-track">
+            <div class="gender-bar-fill" style="width: 62.2%"></div>
+          </div>
+          <div class="gender-bar-legend">
+            <span class="legend-m">♂ 74 (62.2%)</span>
+            <span class="legend-f">45 (37.8%) ♀</span>
+          </div>
+        </div>
+      </div>
+      <div class="stat-card geo-content" data-geo="global">
+        <div class="stat-label">North America</div>
+        <div class="stat-value">24</div>
+        <div class="stat-sub">16.8% of total workforce</div>
+        <div class="gender-bar-wrap">
+          <div class="gender-bar-track">
+            <div class="gender-bar-fill" style="width: 75%"></div>
+          </div>
+          <div class="gender-bar-legend">
+            <span class="legend-m">♂ 18 (75.0%)</span>
+            <span class="legend-f">6 (25.0%) ♀</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Europe -->
+      <div class="stat-card geo-content" data-geo="europe" style="display:none">
+        <div class="stat-label">Total Employees — Europe</div>
+        <div class="stat-value">121</div>
+        <div class="stat-sub">Italy and EU-based (incl. Deel contractors)</div>
+        <div class="gender-bar-wrap">
+          <div class="gender-bar-track">
+            <div class="gender-bar-fill" style="width: 62.8%"></div>
+          </div>
+          <div class="gender-bar-legend">
+            <span class="legend-m">♂ 76 men (62.8%)</span>
+            <span class="legend-f">45 women (37.2%) ♀</span>
+          </div>
+        </div>
+      </div>
+      <div class="stat-card geo-content" data-geo="europe" style="display:none">
+        <div class="stat-label">People Managers</div>
+        <div class="stat-value">31</div>
+        <div class="stat-sub">25.6% of European workforce</div>
+        <div class="gender-bar-wrap">
+          <div class="gender-bar-track">
+            <div class="gender-bar-fill" style="width: 74.2%"></div>
+          </div>
+          <div class="gender-bar-legend">
+            <span class="legend-m">♂ 23 (74.2%)</span>
+            <span class="legend-f">8 (25.8%) ♀</span>
+          </div>
+        </div>
+      </div>
+      <div class="stat-card geo-content" data-geo="europe" style="display:none">
+        <div class="stat-label">Promotions in 2026</div>
+        <div class="stat-value">30</div>
+        <div class="stat-sub">27.0% M · 22.2% F promotion rate</div>
+        <div class="gender-bar-wrap">
+          <div class="gender-bar-track">
+            <div class="gender-bar-fill" style="width: 66.7%"></div>
+          </div>
+          <div class="gender-bar-legend">
+            <span class="legend-m">♂ 20 promoted</span>
+            <span class="legend-f">10 promoted ♀</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- North America -->
+      <div class="stat-card geo-content" data-geo="northamerica" style="display:none">
+        <div class="stat-label">Total Employees — North America</div>
+        <div class="stat-value">22</div>
+        <div class="stat-sub">US and Canada (incl. Deel contractors)</div>
+        <div class="gender-bar-wrap">
+          <div class="gender-bar-track">
+            <div class="gender-bar-fill" style="width: 72.7%"></div>
+          </div>
+          <div class="gender-bar-legend">
+            <span class="legend-m">♂ 16 men (72.7%)</span>
+            <span class="legend-f">6 women (27.3%) ♀</span>
+          </div>
+        </div>
+      </div>
+      <div class="stat-card geo-content" data-geo="northamerica" style="display:none">
+        <div class="stat-label">People Managers</div>
+        <div class="stat-value">10</div>
+        <div class="stat-sub">45.5% of NA workforce</div>
+        <div class="gender-bar-wrap">
+          <div class="gender-bar-track">
+            <div class="gender-bar-fill" style="width: 80%"></div>
+          </div>
+          <div class="gender-bar-legend">
+            <span class="legend-m">♂ 8 (80.0%)</span>
+            <span class="legend-f">2 (20.0%) ♀</span>
+          </div>
+        </div>
+      </div>
+      <div class="stat-card geo-content" data-geo="northamerica" style="display:none">
+        <div class="stat-label">Promotions in 2026</div>
+        <div class="stat-value">6</div>
+        <div class="stat-sub">27.8% M · 16.7% F promotion rate</div>
+        <div class="gender-bar-wrap">
+          <div class="gender-bar-track">
+            <div class="gender-bar-fill" style="width: 83.3%"></div>
+          </div>
+          <div class="gender-bar-legend">
+            <span class="legend-m">♂ 5 promoted</span>
+            <span class="legend-f">1 promoted ♀</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ==============================
+       SECTION 2: REPRESENTATION
+       ============================== -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-number">02</span>
+      <span class="section-title">Representation by Function</span>
+    </div>
+
+    <!-- GLOBAL -->
+    <div class="geo-content" data-geo="global">
+      <div class="grid-2">
+        <div class="card">
+          <div class="card-title">Gender split by Job Family</div>
+          <div class="legend-row">
+            <div class="legend-item"><div class="legend-dot legend-dot-m"></div> Men</div>
+            <div class="legend-item"><div class="legend-dot legend-dot-f"></div> Women</div>
+          </div>
+          <div class="hbar-chart" id="jf-hbar-global"></div>
+          <div class="single-gender-notice">
+            ⚠️ <span><strong>IT</strong> currently has no women (12 people, all men). This is a genuine representation gap the company is actively monitoring.</span>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-title">Manager ratio by Job Family</div>
+          <div class="legend-row">
+            <div class="legend-item"><div class="legend-dot legend-dot-m"></div> Male managers</div>
+            <div class="legend-item"><div class="legend-dot legend-dot-f"></div> Female managers</div>
+          </div>
+          <div class="hbar-chart" id="mgr-hbar-global"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- EUROPE -->
+    <div class="geo-content" data-geo="europe" style="display:none">
+      <div class="grid-2">
+        <div class="card">
+          <div class="card-title">Gender split by Job Family — Europe</div>
+          <div class="legend-row">
+            <div class="legend-item"><div class="legend-dot legend-dot-m"></div> Men</div>
+            <div class="legend-item"><div class="legend-dot legend-dot-f"></div> Women</div>
+          </div>
+          <div class="hbar-chart" id="jf-hbar-europe"></div>
+          <div class="single-gender-notice">
+            ⚠️ <span><strong>IT</strong> currently has no women in Europe (12 people, all men). This is a genuine representation gap the company is actively monitoring.</span>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-title">Manager ratio by Job Family — Europe</div>
+          <div class="legend-row">
+            <div class="legend-item"><div class="legend-dot legend-dot-m"></div> Male managers</div>
+            <div class="legend-item"><div class="legend-dot legend-dot-f"></div> Female managers</div>
+          </div>
+          <div class="hbar-chart" id="mgr-hbar-europe"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- NORTH AMERICA -->
+    <div class="geo-content" data-geo="northamerica" style="display:none">
+      <div class="grid-2">
+        <div class="card">
+          <div class="card-title">Gender split by Job Family — North America</div>
+          <div class="legend-row">
+            <div class="legend-item"><div class="legend-dot legend-dot-m"></div> Men</div>
+            <div class="legend-item"><div class="legend-dot legend-dot-f"></div> Women</div>
+          </div>
+          <div class="hbar-chart" id="jf-hbar-na"></div>
+        </div>
+        <div class="card">
+          <div class="card-title">Manager ratio by Job Family — North America</div>
+          <div class="legend-row">
+            <div class="legend-item"><div class="legend-dot legend-dot-m"></div> Male managers</div>
+            <div class="legend-item"><div class="legend-dot legend-dot-f"></div> Female managers</div>
+          </div>
+          <div class="hbar-chart" id="mgr-hbar-na"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ==============================
+       SECTION 3: PROMOTION RATE
+       ============================== -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-number">03</span>
+      <span class="section-title">Promotion Rate (2026)</span>
+    </div>
+
+    <!-- GLOBAL -->
+    <div class="geo-content" data-geo="global">
+      <div class="card">
+        <div class="card-title">% of each gender group promoted in 2026</div>
+        <div class="promo-visual">
+          <div class="promo-item">
+            <div class="promo-gender-label male">Men</div>
+            <div class="promo-track"><div class="promo-fill-m" style="width:27.2%"></div></div>
+            <div class="promo-stat" style="color:var(--male)">27.2%</div>
+            <div class="promo-sub">25 of 92 men promoted</div>
+          </div>
+          <div class="promo-item">
+            <div class="promo-gender-label female">Women</div>
+            <div class="promo-track"><div class="promo-fill-f" style="width:21.6%"></div></div>
+            <div class="promo-stat" style="color:var(--female)">21.6%</div>
+            <div class="promo-sub">11 of 51 women promoted</div>
+          </div>
+        </div>
+        <div class="notes-block" style="margin-top:16px">
+          <div class="notes-title">Context</div>
+          <ul class="notes-list">
+            <li>A 5.6 percentage point gap in promotion rates between men and women is worth monitoring. Research shows that promotion gaps at junior levels are often the earliest signal of a structural pipeline imbalance — the "broken rung" effect.</li>
+            <li>This data covers promotions formally recorded in Bloom through April 2026. Promotions granted later in the year will be reflected in the next update.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- EUROPE -->
+    <div class="geo-content" data-geo="europe" style="display:none">
+      <div class="card">
+        <div class="card-title">% of each gender group promoted in 2026 — Europe</div>
+        <div class="promo-visual">
+          <div class="promo-item">
+            <div class="promo-gender-label male">Men</div>
+            <div class="promo-track"><div class="promo-fill-m" style="width:27%"></div></div>
+            <div class="promo-stat" style="color:var(--male)">27.0%</div>
+            <div class="promo-sub">20 of 74 men promoted</div>
+          </div>
+          <div class="promo-item">
+            <div class="promo-gender-label female">Women</div>
+            <div class="promo-track"><div class="promo-fill-f" style="width:22.2%"></div></div>
+            <div class="promo-stat" style="color:var(--female)">22.2%</div>
+            <div class="promo-sub">10 of 45 women promoted</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- NORTH AMERICA -->
+    <div class="geo-content" data-geo="northamerica" style="display:none">
+      <div class="card">
+        <div class="card-title">% of each gender group promoted in 2026 — North America</div>
+        <div class="promo-visual">
+          <div class="promo-item">
+            <div class="promo-gender-label male">Men</div>
+            <div class="promo-track"><div class="promo-fill-m" style="width:27.8%"></div></div>
+            <div class="promo-stat" style="color:var(--male)">27.8%</div>
+            <div class="promo-sub">5 of 18 men promoted</div>
+          </div>
+          <div class="promo-item">
+            <div class="promo-gender-label female">Women</div>
+            <div class="promo-track"><div class="promo-fill-f" style="width:16.7%"></div></div>
+            <div class="promo-stat" style="color:var(--female)">16.7%</div>
+            <div class="promo-sub">1 of 6 women promoted</div>
+          </div>
+        </div>
+        <div class="notes-block" style="margin-top:16px">
+          <div class="notes-title">Context</div>
+          <ul class="notes-list">
+            <li>North America has only 6 women in total — any percentage should be read cautiously. One promotion more or less shifts the rate by ~17 percentage points.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ==============================
+       SECTION 4: PAY GAP BY GRADE
+       ============================== -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-number">04</span>
+      <span class="section-title">Pay Gap by Compensation Grade</span>
+    </div>
+
+    <div class="geo-content" data-geo="global">
+      <div class="card">
+        <div class="card-title">Average & Median base salary by grade · Global — all figures in local currency (€ for Europe, USD for North America). Global averages combine both markets and should be read with caution — use the Europe or North America view for within-market comparisons.</div>
+        <table class="pay-table" id="grade-table-global"></table>
+      </div>
+    </div>
+
+    <div class="geo-content" data-geo="europe" style="display:none">
+      <div class="card">
+        <div class="card-title">Average & Median base salary by grade · Europe (€)</div>
+        <table class="pay-table" id="grade-table-europe"></table>
+      </div>
+    </div>
+
+    <div class="geo-content" data-geo="northamerica" style="display:none">
+      <div class="card">
+        <div class="card-title">Average & Median base salary by grade · North America (USD)</div>
+        <table class="pay-table" id="grade-table-na"></table>
+        <div class="notes-block" style="margin-top:16px">
+          <div class="notes-title">Note on small groups</div>
+          <ul class="notes-list">
+            <li>North America has few employees at most grade levels. Gaps shown with n=1 or n=2 per gender are not statistically meaningful — they reflect individual salaries, not structural patterns.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ==============================
+       SECTION 5: PAY GAP BY JOB FAMILY
+       ============================== -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-number">05</span>
+      <span class="section-title">Pay Gap by Job Family</span>
+    </div>
+
+    <div class="geo-content" data-geo="global">
+      <div class="card">
+        <div class="card-title">Average & Median base salary by function · Global — combine both salary markets. The Europe view provides a cleaner within-market picture.</div>
+        <table class="pay-table" id="jf-table-global"></table>
+        <div class="single-gender-notice" style="margin-top:16px">
+          ⚠️ <span><strong>IT</strong> and <strong>Top Management</strong> have no women in their current population. A pay gap cannot be calculated for single-gender groups.</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="geo-content" data-geo="europe" style="display:none">
+      <div class="card">
+        <div class="card-title">Average & Median base salary by function · Europe (€)</div>
+        <table class="pay-table" id="jf-table-europe"></table>
+      </div>
+    </div>
+
+    <div class="geo-content" data-geo="northamerica" style="display:none">
+      <div class="card">
+        <div class="card-title">Average & Median base salary by function · North America (USD)</div>
+        <table class="pay-table" id="jf-table-na"></table>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ==============================
+       SECTION 6: QUARTILE DISTRIBUTION
+       ============================== -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-number">06</span>
+      <span class="section-title">Pay Distribution by Quartile</span>
+    </div>
+
+    <div class="geo-content" data-geo="global">
+      <div class="card">
+        <div class="card-title">Where men and women sit across the pay spectrum · Global</div>
+        <p style="font-size:12px; color:var(--text-secondary); margin-bottom:20px; line-height:1.6">
+          Each bar shows <strong>what percentage of that gender group</strong> falls in each pay quartile — not raw counts. This corrects for the fact that we have more men than women: if distribution were perfectly equal, both bars would reach the same height in every quartile. Quartile boundaries are calculated on the global population.
+        </p>
+        <div class="quartile-grid" id="quartile-global"></div>
+        <div class="notes-block" style="margin-top:16px">
+          <div class="notes-title">What this tells us</div>
+          <ul class="notes-list">
+            <li>37% of women fall in the lowest pay quartile (Q1), compared to 18.5% of men. This gap is real — but it primarily reflects a <strong>seniority and representation gap</strong> (fewer women at senior levels), not a pattern of women being paid less than men in the same role.</li>
+            <li>In Q4 (highest pay), 27% of men and 20% of women are represented — a meaningful but not extreme difference, and largely explained by the current gender composition at Director and VP levels.</li>
+            <li>The company holds a Gender Equality Certification, reflecting work done on pay equity within comparable roles. The quartile data maps where the pipeline challenge remains.</li>
+            <li>This indicator is explicitly required by EU Directive 2023/970.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="geo-content" data-geo="europe" style="display:none">
+      <div class="card">
+        <div class="card-title">Where men and women sit across the pay spectrum · Europe</div>
+        <p style="font-size:12px; color:var(--text-secondary); margin-bottom:20px; line-height:1.6">Bars show % of each gender group in that quartile (not raw counts). Quartile boundaries calculated on global population for consistency.</p>
+        <div class="quartile-grid" id="quartile-europe"></div>
+        <div class="notes-block" style="margin-top:16px">
+          <div class="notes-title">What this tells us</div>
+          <ul class="notes-list">
+            <li>In Europe, 42% of women are in Q1 vs. 23% of men. As in the global view, this reflects seniority distribution more than within-role pay inequity — women in Europe are concentrated in specialist grades (P2–P4) while senior management grades are male-dominated.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="geo-content" data-geo="northamerica" style="display:none">
+      <div class="card">
+        <div class="card-title">Where men and women sit across the pay spectrum · North America</div>
+        <p style="font-size:12px; color:var(--text-secondary); margin-bottom:20px; line-height:1.6">Bars show % of each gender group in that quartile (not raw counts). North America has only 6 women — each individual represents ~17% of the female population, so percentages should be read with caution.</p>
+        <div class="quartile-grid" id="quartile-na"></div>
+        <div class="notes-block" style="margin-top:16px">
+          <div class="notes-title">What this tells us</div>
+          <ul class="notes-list">
+            <li>Virtually all North America employees — both men and women — fall in Q4 of the global pay distribution, reflecting US/Canada market salary levels. 100% of NA women and 94% of NA men are in the top quartile globally.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ==============================
+       SECTION 7: METHODOLOGICAL NOTES
+       ============================== -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-number">07</span>
+      <span class="section-title">Methodology & Notes</span>
+    </div>
+    <div class="notes-block">
+      <div class="notes-title">How to read this dashboard</div>
+      <ul class="notes-list">
+        <li><strong>Compensation metric:</strong> All figures show annual base salary only (FTE-adjusted for part-time employees). Variable compensation — bonuses and on-target earnings — is not included here because it is already publicly documented on Confluence by role and level, and its structure is known to all employees. Monthly remote work allowances for fully remote employees are also excluded.</li>
+        <li><strong>Geography matters:</strong> European salaries are denominated in EUR; North American salaries in USD. Compensation markets in the US/Canada are structurally higher than in Europe. Mixing the two geographies in a single average can create the appearance of large gaps that are entirely explained by geography. Use the Europe or North America toggle for within-market analysis.</li>
+        <li><strong>Mean vs. median:</strong> Both are shown. The mean (average) is sensitive to extreme values; the median (midpoint) is more robust. When they diverge significantly, the median is usually the more informative figure.</li>
+        <li><strong>Gap direction:</strong> A positive gap (shown in red) means men earn more on average. A negative gap (shown in green) means women earn more. Both directions are shown without editorial judgment — they reflect the current composition of each group.</li>
+        <li><strong>Small groups:</strong> Levels or functions with fewer than 3 people of one gender are shown but should be interpreted with caution. Individual salaries, not structural patterns, drive the figures in these cases.</li>
+        <li><strong>M1 - Associate Manager:</strong> The two employees at this level have functionally different roles (one commercial, one staff). The apparent gap reflects role differences, not compensation inequity within the same role.</li>
+        <li><strong>EU Directive 2023/970:</strong> This dashboard is designed to meet the transparency and information rights obligations of the EU Pay Transparency Directive, including workforce composition, pay gap by category, and quartile distribution disclosures.</li>
+        <li><strong>Data source:</strong> Bloom (Workday-based HRIS). Data exported June 15, 2026. Next scheduled update: December 2026.</li>
+        <li><strong>Questions or feedback?</strong> Reach out to the People & Culture team or use the anonymous feedback form linked on the Grow Committee Confluence space.</li>
+      </ul>
+    </div>
+  </div>
+
+</div><!-- end main -->
+
+<!-- FOOTER -->
+<div class="footer">
+  <div class="footer-inner">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-title">Legal context</div>
+        This dashboard is produced in line with the obligations of EU Directive 2023/970 on pay transparency, which requires employers to provide workers with information on pay levels and pay gap indicators. The right to request individual pay comparisons by gender category is available to all employees — contact People & Culture to exercise this right.
+      </div>
+      <div>
+        <div class="footer-title">Data privacy</div>
+        All data is aggregated. No individual salary information is disclosed in this dashboard. Groups with fewer than 3 people of one gender are displayed with a caution note. The dashboard is updated manually from Bloom exports twice yearly.
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<script>
+// ============================================================
+// DATA
+// ============================================================
+const DATA = {
+  global: {
+    jf_composition: [
+      { label: 'Product Development', male: 45, female: 12 },
+      { label: 'Sales, CS & Support', male: 16, female: 12 },
+      { label: 'AFC & Legal', male: 6, female: 9 },
+      { label: 'Marketing', male: 6, female: 12 },
+      { label: 'IT', male: 12, female: 0 },
+      { label: 'People & Culture', male: 2, female: 6 },
+      { label: 'Top Management', male: 5, female: 0 },
+    ],
+    mgr_by_jf: [
+      { label: 'Product Development', male: 11, female: 1 },
+      { label: 'Sales, CS & Support', male: 7, female: 1 },
+      { label: 'AFC & Legal', male: 3, female: 2 },
+      { label: 'Marketing', male: 2, female: 3 },
+      { label: 'IT', male: 3, female: 0 },
+      { label: 'People & Culture', male: 0, female: 3 },
+      { label: 'Top Management', male: 5, female: 0 },
+    ],
+    pay_by_grade: [
+      { grade: 'P1 - Junior Specialist', n_m: 0, n_f: 1, mean_m: null, mean_f: 27775, median_m: null, median_f: 27775 },
+      { grade: 'P2 - Specialist', n_m: 8, n_f: 6, mean_m: 45552, mean_f: 45035, median_m: 41655, median_f: 34356 },
+      { grade: 'P3 - Senior Specialist', n_m: 18, n_f: 21, mean_m: 46224, mean_f: 44146, median_m: 44685, median_f: 45000 },
+      { grade: 'P4 - Expert', n_m: 23, n_f: 10, mean_m: 62899, mean_f: 61703, median_m: 54200, median_f: 52598 },
+      { grade: 'P5 - Lead', n_m: 10, n_f: 3, mean_m: 80502, mean_f: 77047, median_m: 61910, median_f: 70292 },
+      { grade: 'P6 - Senior Lead', n_m: 2, n_f: 1, mean_m: 98498, mean_f: 115000, median_m: 98498, median_f: 115000 },
+      { grade: 'P7 - Strategist', n_m: 1, n_f: 0, mean_m: 143234, mean_f: null, median_m: 143234, median_f: null },
+      { grade: 'M1 - Associate Manager', n_m: 1, n_f: 1, mean_m: 54679, mean_f: 43000, median_m: 54679, median_f: 43000, note: true },
+      { grade: 'M2 - Manager', n_m: 4, n_f: 2, mean_m: 74544, mean_f: 72550, median_m: 63177, median_f: 72550 },
+      { grade: 'M3 - Senior Manager', n_m: 12, n_f: 4, mean_m: 74447, mean_f: 80924, median_m: 68204, median_f: 71598 },
+      { grade: 'M4 - Head of', n_m: 3, n_f: 0, mean_m: 193797, mean_f: null, median_m: 212000, median_f: null },
+      { grade: 'M5 - Director', n_m: 5, n_f: 2, mean_m: 103598, mean_f: 191790, median_m: 109080, median_f: 191790 },
+      { grade: 'M6 - Senior Director', n_m: 1, n_f: 0, mean_m: 155000, mean_f: null, median_m: 155000, median_f: null },
+      { grade: 'M7 - Vice President', n_m: 2, n_f: 0, mean_m: 272500, mean_f: null, median_m: 272500, median_f: null },
+      { grade: 'M8 - Exec VP', n_m: 2, n_f: 0, mean_m: 300000, mean_f: null, median_m: 300000, median_f: null },
+    ],
+    pay_by_jf: [
+      { jf: 'AFC & Legal', n_m: 6, n_f: 9, mean_m: 64852, mean_f: 53038, median_m: 60729, median_f: 43713 },
+      { jf: 'IT', n_m: 12, n_f: 0, mean_m: 56951, mean_f: null, median_m: 54316, median_f: null },
+      { jf: 'Marketing', n_m: 6, n_f: 12, mean_m: 150091, mean_f: 80407, median_m: 146617, median_f: 52250 },
+      { jf: 'People & Culture', n_m: 2, n_f: 6, mean_m: 40000, mean_f: 68802, median_m: 40000, median_f: 56979 },
+      { jf: 'Product Development', n_m: 45, n_f: 12, mean_m: 58653, mean_f: 51596, median_m: 54820, median_f: 50000 },
+      { jf: 'Sales, CS & Support', n_m: 16, n_f: 12, mean_m: 90095, mean_f: 50784, median_m: 78500, median_f: 39298 },
+      { jf: 'Top Management', n_m: 5, n_f: 0, mean_m: 260000, mean_f: null, median_m: 295000, median_f: null },
+    ],
+    quartiles: [
+      { q: 'Q1 (Lowest 25%)', male: 17, female: 19 },
+      { q: 'Q2', male: 22, female: 14 },
+      { q: 'Q3', male: 28, female: 8 },
+      { q: 'Q4 (Highest 25%)', male: 25, female: 10 },
+    ]
+  },
+  europe: {
+    jf_composition: [
+      { label: 'Product Development', male: 44, female: 12 },
+      { label: 'Sales, CS & Support', male: 7, female: 10 },
+      { label: 'AFC & Legal', male: 6, female: 9 },
+      { label: 'Marketing', male: 1, female: 9 },
+      { label: 'IT', male: 12, female: 0 },
+      { label: 'People & Culture', male: 2, female: 5 },
+      { label: 'Top Management', male: 4, female: 0 },
+    ],
+    mgr_by_jf: [
+      { label: 'Product Development', male: 11, female: 1 },
+      { label: 'Sales, CS & Support', male: 4, female: 0 },
+      { label: 'AFC & Legal', male: 3, female: 2 },
+      { label: 'Marketing', male: 0, female: 2 },
+      { label: 'IT', male: 3, female: 0 },
+      { label: 'People & Culture', male: 0, female: 3 },
+      { label: 'Top Management', male: 2, female: 0 },
+    ],
+    pay_by_grade: [
+      { grade: 'P1 - Junior Specialist', n_m: 0, n_f: 1, mean_m: null, mean_f: 27775, median_m: null, median_f: 27775 },
+      { grade: 'P2 - Specialist', n_m: 6, n_f: 5, mean_m: 37405, mean_f: 34142, median_m: 37654, median_f: 33307 },
+      { grade: 'P3 - Senior Specialist', n_m: 17, n_f: 21, mean_m: 43766, mean_f: 44146, median_m: 44370, median_f: 45000 },
+      { grade: 'P4 - Expert', n_m: 19, n_f: 8, mean_m: 52536, mean_f: 51404, median_m: 52000, median_f: 50598 },
+      { grade: 'P5 - Lead', n_m: 8, n_f: 2, mean_m: 60191, mean_f: 63570, median_m: 61098, median_f: 63570 },
+      { grade: 'P6 - Senior Lead', n_m: 1, n_f: 1, mean_m: 65996, mean_f: 115000, median_m: 65996, median_f: 115000 },
+      { grade: 'M1 - Associate Manager', n_m: 1, n_f: 1, mean_m: 54679, mean_f: 43000, median_m: 54679, median_f: 43000, note: true },
+      { grade: 'M2 - Manager', n_m: 3, n_f: 1, mean_m: 58059, mean_f: 55000, median_m: 59659, median_f: 55000 },
+      { grade: 'M3 - Senior Manager', n_m: 11, n_f: 4, mean_m: 67579, mean_f: 80924, median_m: 68196, median_f: 71598 },
+      { grade: 'M4 - Head of', n_m: 1, n_f: 0, mean_m: 94390, mean_f: null, median_m: 94390, median_f: null },
+      { grade: 'M5 - Director', n_m: 5, n_f: 1, mean_m: 103598, mean_f: 124080, median_m: 109080, median_f: 124080 },
+      { grade: 'M6 - Senior Director', n_m: 1, n_f: 0, mean_m: 155000, mean_f: null, median_m: 155000, median_f: null },
+      { grade: 'M7 - Vice President', n_m: 1, n_f: 0, mean_m: 250000, mean_f: null, median_m: 250000, median_f: null },
+      { grade: 'M8 - Exec VP', n_m: 2, n_f: 0, mean_m: 300000, mean_f: null, median_m: 300000, median_f: null },
+    ],
+    pay_by_jf: [
+      { jf: 'AFC & Legal', n_m: 6, n_f: 9, mean_m: 64852, mean_f: 53038, median_m: 60729, median_f: 43713 },
+      { jf: 'IT', n_m: 12, n_f: 0, mean_m: 56951, mean_f: null, median_m: 54316, median_f: null },
+      { jf: 'Marketing', n_m: 1, n_f: 9, mean_m: 44314, mean_f: 55510, median_m: 44314, median_f: 47200 },
+      { jf: 'People & Culture', n_m: 2, n_f: 5, mean_m: 40000, mean_f: 61762, median_m: 40000, median_f: 48957 },
+      { jf: 'Product Development', n_m: 44, n_f: 12, mean_m: 57009, mean_f: 51596, median_m: 53660, median_f: 50000 },
+      { jf: 'Sales, CS & Support', n_m: 7, n_f: 10, mean_m: 56219, mean_f: 41981, median_m: 54679, median_f: 38959 },
+      { jf: 'Top Management', n_m: 4, n_f: 0, mean_m: 251250, mean_f: null, median_m: 275000, median_f: null },
+    ],
+    quartiles: [
+      { q: 'Q1 (Lowest 25%)', male: 17, female: 19 },
+      { q: 'Q2', male: 22, female: 14 },
+      { q: 'Q3', male: 27, female: 8 },
+      { q: 'Q4 (Highest 25%)', male: 10, female: 4 },
+    ]
+  },
+  northamerica: {
+    jf_composition: [
+      { label: 'Sales, CS & Support', male: 9, female: 2 },
+      { label: 'Marketing', male: 5, female: 3 },
+      { label: 'Top Management', male: 1, female: 0 },
+      { label: 'Product Development', male: 1, female: 0 },
+      { label: 'People & Culture', male: 0, female: 1 },
+    ],
+    mgr_by_jf: [
+      { label: 'Sales, CS & Support', male: 3, female: 1 },
+      { label: 'Marketing', male: 2, female: 1 },
+      { label: 'Top Management', male: 1, female: 0 },
+    ],
+    pay_by_grade: [
+      { grade: 'P2 - Specialist', n_m: 2, n_f: 1, mean_m: 69994, mean_f: 99500, median_m: 69994, median_f: 99500 },
+      { grade: 'P3 - Senior Specialist', n_m: 1, n_f: 0, mean_m: 88000, mean_f: null, median_m: 88000, median_f: null },
+      { grade: 'P4 - Expert', n_m: 4, n_f: 2, mean_m: 112125, mean_f: 102900, median_m: 118000, median_f: 102900 },
+      { grade: 'P5 - Lead', n_m: 2, n_f: 1, mean_m: 161750, mean_f: 104000, median_m: 161750, median_f: 104000 },
+      { grade: 'P6 - Senior Lead', n_m: 1, n_f: 0, mean_m: 131000, mean_f: null, median_m: 131000, median_f: null },
+      { grade: 'P7 - Strategist', n_m: 1, n_f: 0, mean_m: 143234, mean_f: null, median_m: 143234, median_f: null },
+      { grade: 'M2 - Manager', n_m: 1, n_f: 1, mean_m: 124000, mean_f: 90100, median_m: 124000, median_f: 90100 },
+      { grade: 'M3 - Senior Manager', n_m: 1, n_f: 0, mean_m: 150000, mean_f: null, median_m: 150000, median_f: null },
+      { grade: 'M4 - Head of', n_m: 2, n_f: 0, mean_m: 243500, mean_f: null, median_m: 243500, median_f: null },
+      { grade: 'M5 - Director', n_m: 0, n_f: 1, mean_m: null, mean_f: 259500, median_m: null, median_f: 259500 },
+      { grade: 'M7 - Vice President', n_m: 1, n_f: 0, mean_m: 295000, mean_f: null, median_m: 295000, median_f: null },
+    ],
+    pay_by_jf: [
+      { jf: 'Marketing', n_m: 5, n_f: 3, mean_m: 171247, mean_f: 155100, median_m: 150000, median_f: 115300 },
+      { jf: 'People & Culture', n_m: 0, n_f: 1, mean_m: null, mean_f: 104000, median_m: null, median_f: 104000 },
+      { jf: 'Product Development', n_m: 1, n_f: 0, mean_m: 131000, mean_f: null, median_m: 131000, median_f: null },
+      { jf: 'Sales, CS & Support', n_m: 9, n_f: 2, mean_m: 116443, mean_f: 94800, median_m: 113000, median_f: 94800 },
+      { jf: 'Top Management', n_m: 1, n_f: 0, mean_m: 295000, mean_f: null, median_m: 295000, median_f: null },
+    ],
+    quartiles: [
+      { q: 'Q1 (Lowest 25%)', male: 0, female: 0 },
+      { q: 'Q2', male: 0, female: 0 },
+      { q: 'Q3', male: 1, female: 0 },
+      { q: 'Q4 (Highest 25%)', male: 15, female: 6 },
+    ]
+  }
+};
+
+// ============================================================
+// RENDER HELPERS
+// ============================================================
+function fmt(n) {
+  if (n === null || n === undefined) return null;
+  return new Intl.NumberFormat('en', { style: 'currency', currency: 'EUR', maximumFractionDigits: 0 }).format(n).replace('€', '').trim();
+}
+
+function gapClass(gap) {
+  if (gap === null) return 'gap-na';
+  if (gap > 1) return 'gap-positive';
+  if (gap < -1) return 'gap-negative';
+  return 'gap-neutral';
+}
+
+function gapLabel(n_m, n_f, mean_m, mean_f) {
+  if (n_m === 0 || n_f === 0) return { text: 'n/a', cls: 'gap-na' };
+  const gap = ((mean_m - mean_f) / mean_m * 100);
+  const cls = gapClass(gap);
+  const sign = gap > 0 ? '+' : '';
+  return { text: sign + gap.toFixed(1) + '%', cls };
+}
+
+function renderHBar(containerId, data, type) {
+  const el = document.getElementById(containerId);
+  if (!el) return;
+  const maxVal = Math.max(...data.map(d => d.male + d.female));
+  el.innerHTML = data.map(d => {
+    const total = d.male + d.female;
+    const mPct = total > 0 ? (d.male / total * 100) : 0;
+    const fPct = total > 0 ? (d.female / total * 100) : 0;
+    return `
+      <div class="hbar-row">
+        <div class="hbar-label">${d.label}</div>
+        <div class="hbar-track" style="max-width:100%">
+          <div class="hbar-m" style="width:${mPct}%"></div>
+          <div class="hbar-f" style="width:${fPct}%"></div>
+        </div>
+        <div class="hbar-value" style="color:var(--text-secondary)">${d.male}M / ${d.female}F</div>
+      </div>`;
+  }).join('');
+}
+
+function renderPayTable(tableId, rows, isJf) {
+  const el = document.getElementById(tableId);
+  if (!el) return;
+  const nameKey = isJf ? 'jf' : 'grade';
+  let html = `<thead><tr>
+    <th>${isJf ? 'Function' : 'Grade'}</th>
+    <th class="right">Count (M/F)</th>
+    <th class="right">Avg — Men</th>
+    <th class="right">Avg — Women</th>
+    <th class="right">Gap (mean)</th>
+    <th class="right">Median — Men</th>
+    <th class="right">Median — Women</th>
+    <th class="right">Gap (median)</th>
+  </tr></thead><tbody>`;
+  rows.forEach(r => {
+    const meanGap = gapLabel(r.n_m, r.n_f, r.mean_m, r.mean_f);
+    const medGap = gapLabel(r.n_m, r.n_f, r.median_m, r.median_f);
+    const noteHtml = r.note ? `<span class="note-inline" title="The two roles at this level are functionally different (commercial vs. staff). This gap reflects role differences, not pay inequity within the same role.">⚠️ note</span>` : '';
+    html += `<tr>
+      <td>
+        <div class="grade-label">${r[nameKey]}${noteHtml}</div>
+        <div class="grade-count">${r.n_m}M · ${r.n_f}F</div>
+      </td>
+      <td class="salary-cell">${r.n_m + r.n_f}</td>
+      <td class="salary-cell ${r.mean_m ? 'salary-m' : 'salary-na'}">${r.mean_m ? fmt(r.mean_m) : '—'}</td>
+      <td class="salary-cell ${r.mean_f ? 'salary-f' : 'salary-na'}">${r.mean_f ? fmt(r.mean_f) : '—'}</td>
+      <td class="gap-cell ${meanGap.cls}">${meanGap.text}</td>
+      <td class="salary-cell ${r.median_m ? 'salary-m' : 'salary-na'}">${r.median_m ? fmt(r.median_m) : '—'}</td>
+      <td class="salary-cell ${r.median_f ? 'salary-f' : 'salary-na'}">${r.median_f ? fmt(r.median_f) : '—'}</td>
+      <td class="gap-cell ${medGap.cls}">${medGap.text}</td>
+    </tr>`;
+  });
+  html += '</tbody>';
+  el.innerHTML = html;
+}
+
+function renderQuartiles(containerId, data, totalM, totalF) {
+  const el = document.getElementById(containerId);
+  if (!el) return;
+  // Compute intra-gender percentages
+  const rows = data.map(d => ({
+    ...d,
+    pct_m: totalM > 0 ? Math.round(d.male / totalM * 100) : 0,
+    pct_f: totalF > 0 ? Math.round(d.female / totalF * 100) : 0,
+  }));
+  const maxPct = Math.max(...rows.map(r => Math.max(r.pct_m, r.pct_f)), 1);
+  el.innerHTML = rows.map(r => {
+    const mH = Math.max(r.pct_m > 0 ? 4 : 0, Math.round((r.pct_m / maxPct) * 90));
+    const fH = Math.max(r.pct_f > 0 ? 4 : 0, Math.round((r.pct_f / maxPct) * 90));
+    return `
+      <div class="quartile-card">
+        <div class="quartile-label">${r.q}</div>
+        <div class="quartile-bar-wrap">
+          <div class="quartile-bar qbar-m" style="height:${mH}px" title="Men: ${r.male} (${r.pct_m}% of all men)"></div>
+          <div class="quartile-bar qbar-f" style="height:${fH}px" title="Women: ${r.female} (${r.pct_f}% of all women)"></div>
+        </div>
+        <div class="quartile-counts">
+          <span class="qcount-m">♂ ${r.pct_m}%</span>
+          <span class="qcount-f">♀ ${r.pct_f}%</span>
+        </div>
+        <div class="quartile-pct">${r.male}M · ${r.female}F</div>
+      </div>`;
+  }).join('');
+}
+
+// ============================================================
+// INIT ALL CHARTS
+// ============================================================
+function initAll() {
+  const totals = {
+    global: { m: 92, f: 51 },
+    europe: { m: 76, f: 45 },
+    northamerica: { m: 16, f: 6 }
+  };
+  ['global','europe','northamerica'].forEach(geo => {
+    const d = DATA[geo];
+    const gKey = geo === 'northamerica' ? 'na' : geo;
+    const t = totals[geo];
+    renderHBar(`jf-hbar-${gKey}`, d.jf_composition);
+    renderHBar(`mgr-hbar-${gKey}`, d.mgr_by_jf);
+    renderPayTable(`grade-table-${gKey}`, d.pay_by_grade, false);
+    renderPayTable(`jf-table-${gKey}`, d.pay_by_jf, true);
+    renderQuartiles(`quartile-${gKey}`, d.quartiles, t.m, t.f);
+  });
+}
+
+// ============================================================
+// GEO TOGGLE
+// ============================================================
+let currentGeo = 'global';
+
+function setGeo(geo) {
+  currentGeo = geo;
+  document.querySelectorAll('.geo-btn').forEach(b => b.classList.remove('active'));
+  event.target.classList.add('active');
+
+  document.querySelectorAll('.geo-content').forEach(el => {
+    const elGeo = el.dataset.geo;
+    if (elGeo === geo) {
+      el.style.display = '';
+    } else {
+      el.style.display = 'none';
+    }
+  });
+}
+
+// ============================================================
+// BOOT
+// ============================================================
+document.addEventListener('DOMContentLoaded', () => {
+  initAll();
+  // Ensure global is visible on load
+  document.querySelectorAll('.geo-content').forEach(el => {
+    if (el.dataset.geo !== 'global') el.style.display = 'none';
+    else el.style.display = '';
+  });
+});
+</script>
+</body>
+</html>
