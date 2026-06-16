@@ -130,13 +130,13 @@ h1 em{font-style:italic;color:#8BA8F5}
 <div class="sh"><span class="sn">02</span><span class="st">Representation by Function</span></div>
 <div class="blk on" id="rep-g">
 <div class="g2">
-<div class="card"><div class="ct">Gender split by Job Family · Global</div><div class="lr"><div class="li"><div class="ld ldm"></div>Men</div><div class="li"><div class="ld ldf"></div>Women</div></div><div class="hbc" id="jf-g"></div><div class="wb" style="margin-top:12px">⚠️ <span>The IT team currently has no women. This reflects recent organisational changes — women were previously present in the team. Very limited hiring across staff functions does not currently allow us to change the team composition.</span></div></div>
+<div class="card"><div class="ct">Gender split by Job Family · Global</div><div class="lr"><div class="li"><div class="ld ldm"></div>Men</div><div class="li"><div class="ld ldf"></div>Women</div></div><div class="hbc" id="jf-g"></div></div>
 <div class="card"><div class="ct">Manager ratio by Job Family · Global</div><div class="lr"><div class="li"><div class="ld ldm"></div>Male managers</div><div class="li"><div class="ld ldf"></div>Female managers</div></div><div class="hbc" id="mgr-g"></div></div>
 </div>
 </div>
 <div class="blk" id="rep-e">
 <div class="g2">
-<div class="card"><div class="ct">Gender split by Job Family · Europe</div><div class="lr"><div class="li"><div class="ld ldm"></div>Men</div><div class="li"><div class="ld ldf"></div>Women</div></div><div class="hbc" id="jf-e"></div><div class="wb" style="margin-top:12px">⚠️ <span>The IT team currently has no women in Europe. This reflects recent organisational changes — women were previously present in the team. Very limited hiring across staff functions does not currently allow us to change the team composition.</span></div></div>
+<div class="card"><div class="ct">Gender split by Job Family · Europe</div><div class="lr"><div class="li"><div class="ld ldm"></div>Men</div><div class="li"><div class="ld ldf"></div>Women</div></div><div class="hbc" id="jf-e"></div></div>
 <div class="card"><div class="ct">Manager ratio by Job Family · Europe</div><div class="lr"><div class="li"><div class="ld ldm"></div>Male managers</div><div class="li"><div class="ld ldf"></div>Female managers</div></div><div class="hbc" id="mgr-e"></div></div>
 </div>
 </div>
@@ -211,7 +211,8 @@ h1 em{font-style:italic;color:#8BA8F5}
 <div class="ct">Average base salary by function · Global (€, USD converted at May 2026 rate)</div>
 <div class="notes" style="margin-bottom:16px"><div class="nt">How to read this chart</div><ul>
 <li>Bar height = <strong>average base salary</strong>. The horizontal line = <strong>median salary</strong>.</li>
-<li>Only functions where both men and women each have at least 2 people are shown. Hidden functions: <strong>IT</strong> (no women), <strong>Top Management</strong> (no women), <strong>People &amp; Culture</strong> (only 2 men), <strong>Sales, CS &amp; Support</strong> (mix of EUR/USD makes comparison unreliable at global level).</li>
+<li>Only functions where both men and women each have at least 2 people are shown, or where a single-gender group has at least 3 people. Hidden: <strong>Top Management</strong> (pay data not shown in any view).</li>
+<li><strong>IT</strong> has no women — the bar shows men only. <strong>Marketing</strong> and <strong>Sales, CS &amp; Support</strong> include both European (€) and North American (USD) salaries converted to EUR — apparent gaps in these functions may partly reflect geographic salary market differences rather than gender-based pay inequity. Use the Europe view for a within-market comparison.</li>
 <li>Marketing shows a large apparent gap — this is largely explained by 5 of 6 men being based in North America (higher salary market) vs. most women being Europe-based. Use the Europe view for a cleaner picture.</li>
 </ul></div>
 <div class="chart-legend">
@@ -228,7 +229,7 @@ h1 em{font-style:italic;color:#8BA8F5}
 <div class="ct">Average base salary by function · Europe (€)</div>
 <div class="notes" style="margin-bottom:16px"><div class="nt">How to read this chart</div><ul>
 <li>Bar height = <strong>average base salary</strong>. The horizontal line = <strong>median salary</strong>.</li>
-<li>Functions not shown: <strong>IT</strong> (no women), <strong>Top Management</strong> (no women), <strong>Marketing</strong> (only 1 man in Europe), <strong>People &amp; Culture</strong> (fewer than 3 men).</li>
+<li>Functions not shown: <strong>Top Management</strong> (pay data not shown), <strong>IT</strong> (no women — shown in Global view only), <strong>Marketing</strong> (only 1 man in Europe — below threshold).</li>
 </ul></div>
 <div class="chart-legend">
 <div class="cl-item"><div class="cl-bar" style="background:var(--male)"></div>Men — avg salary</div>
@@ -298,7 +299,7 @@ h1 em{font-style:italic;color:#8BA8F5}
 <ul>
 <li><strong>Compensation metric:</strong> All figures show annual base salary only (FTE-adjusted for part-time employees). Variable compensation is not included here — bonus structures and on-target earnings are already documented on Confluence by role and level (<a href="https://growens.atlassian.net/wiki/spaces/INET/pages/3731095561/Variable+Compensation+Systems?atlOrigin=eyJpIjoiYzhhNTE1ZmUzN2QzNDk4MmI3MWIyZjYxMDFlNTFiZTQiLCJwIjoiYyJ9" target="_blank" style="color:var(--blue)">Variable Compensation Systems</a>). Monthly remote work allowances for fully remote employees are also excluded.</li>
 <li><strong>Currency conversion:</strong> In the Global view, North American salaries (USD) are converted to EUR using the May 2026 reference rate (1 USD = 0.857 EUR / 1 EUR = 1.1673 USD). Europe figures are always in EUR. North America figures are always in USD. Some residual geographic variation in the Global view may reflect salary market differences rather than gender gaps — use the regional views for within-market comparisons.</li>
-<li><strong>Privacy threshold:</strong> Pay data is shown only where both men and women each have at least 2 people in that group. Groups below this threshold show headcount only, with no salary figures, to prevent identification of individuals. This single rule applies consistently across all geographies and views. This approach aligns with EU Directive 2023/970 guidance on data privacy in pay reporting.</li>
+<li><strong>Single-gender groups:</strong> Some functions and work levels have populations of one gender only. Where the group has at least 3 people, average and median salary are shown for that gender. Top Management pay data is not shown in any view regardless of group size. All other groups below 2 people per gender show headcount only, to prevent identification of individuals.</li>
 <li><strong>Mean vs. median:</strong> Bar height shows the average (mean) base salary. The dashed horizontal line on each bar shows the median. When they diverge, the median is usually more representative as it is less affected by outliers.</li>
 <li><strong>Gap direction:</strong> When men's average is higher than women's, the gap is positive. When women's is higher, the gap is negative. Both are shown neutrally — some gaps reflect role mix or seniority distribution within a level, not direct pay inequity.</li>
 <li><strong>EU Directive 2023/970:</strong> This dashboard is designed to meet the transparency and information rights obligations of the EU Pay Transparency Directive, including workforce composition, pay gap by category, and quartile distribution disclosures. Under the Directive, every employee has the right to request the average pay levels disaggregated by gender for their own comparable work category. To exercise this right, write to <a href="mailto:people@growens.io" style="color:var(--blue)">people@growens.io</a>.</li>
@@ -345,8 +346,12 @@ grade:[
 {g:'M8 - Exec VP',nm:2,nf:0,v:false}],
 jft:[
 {j:'AFC & Legal',nm:6,nf:9,v:true,amm:64852,amf:53038,mdm:60729,mdf:43713},
+{j:'IT',nm:12,nf:0,v:true,amm:56951,amf:null,mdm:54316,mdf:null},
 {j:'Marketing',nm:6,nf:12,v:true,amm:129638,amf:74850,mdm:125603,mdf:52250},
-{j:'Product Development',nm:45,nf:12,v:true,amm:58236,amf:51596,mdm:54820,mdf:50000}],
+{j:'People & Culture',nm:2,nf:6,v:true,amm:40000,amf:66318,mdm:40000,mdf:56979},
+{j:'Product Development',nm:45,nf:12,v:true,amm:58236,amf:51596,mdm:54820,mdf:50000},
+{j:'Sales, CS & Support',nm:16,nf:12,v:true,amm:90095,amf:50784,mdm:78500,mdf:39298},
+{j:'Top Management',nm:5,nf:0,v:false}],
 q:[{q:'Q1 (Lowest)',m:17,f:19,pm:18.5,pf:37.3},{q:'Q2',m:22,f:14,pm:23.9,pf:27.5},{q:'Q3',m:28,f:8,pm:30.4,pf:15.7},{q:'Q4 (Highest)',m:25,f:10,pm:27.2,pf:19.6}]
 },
 e:{
@@ -369,8 +374,12 @@ grade:[
 {g:'M8 - Exec VP',nm:2,nf:0,v:false}],
 jft:[
 {j:'AFC & Legal',nm:6,nf:9,v:true,amm:64852,amf:53038,mdm:60729,mdf:43713},
+{j:'IT',nm:12,nf:0,v:false},
+{j:'Marketing',nm:1,nf:9,v:false},
+{j:'People & Culture',nm:2,nf:5,v:true,amm:40000,amf:61762,mdm:40000,mdf:48957},
 {j:'Product Development',nm:44,nf:12,v:true,amm:57009,amf:51596,mdm:53660,mdf:50000},
-{j:'Sales, CS & Support',nm:7,nf:10,v:true,amm:56219,amf:41981,mdm:54679,mdf:38959}],
+{j:'Sales, CS & Support',nm:7,nf:10,v:true,amm:56219,amf:41981,mdm:54679,mdf:38959},
+{j:'Top Management',nm:4,nf:0,v:false}],
 q:[{q:'Q1 (Lowest)',m:17,f:19,pm:22.4,pf:42.2},{q:'Q2',m:22,f:14,pm:28.9,pf:31.1},{q:'Q3',m:27,f:8,pm:35.5,pf:17.8},{q:'Q4 (Highest)',m:10,f:4,pm:13.2,pf:8.9}]
 },
 n:{
@@ -415,10 +424,9 @@ var note='';
 if(geo==='n'){note='<div class="notes" style="margin-top:16px"><div class="nt">Context</div><ul><li>North America has only 6 women total. One individual represents ~17 percentage points of the female promotion rate — small group sizes make these percentages volatile and not directly comparable to the global or European figures.</li></ul></div>';}
 document.getElementById('promo-'+geo).innerHTML='<div class="card"><div class="ct">% of each gender group promoted in 2026'+(geo==='g'?' · Global':geo==='e'?' · Europe':' · North America')+'</div><div class="pw"><div class="pi"><div class="pl" style="color:var(--male)">Men</div><div class="ptr"><div class="pfm" style="width:'+d.pct_m+'%"></div></div><div class="pst" style="color:var(--male)">'+d.pct_m+'%</div><div class="psb">'+d.nm_promo+' of '+d.nm+' men promoted</div>'+(geo!=='n'?'<div class="ppay">Avg base salary of promoted men: '+cur+' '+fmt(d.avg_pay_pm)+'</div>':'')+'</div><div class="pi"><div class="pl" style="color:var(--female)">Women</div><div class="ptr"><div class="pff" style="width:'+d.pct_f+'%"></div></div><div class="pst" style="color:var(--female)">'+d.pct_f+'%</div><div class="psb">'+d.nf_promo+' of '+d.nf+' women promoted</div>'+(geo!=='n'?'<div class="ppay">Avg base salary of promoted women: '+cur+' '+fmt(d.avg_pay_pf)+'</div>':'')+'</div></div>'+note+'</div>';}
 
-function buildBarChart(canvasId,labels,mAvg,fAvg,mMed,fMed,currency){
+function buildBarChart(canvasId,labels,mAvg,fAvg,mMed,fMed,mCount,fCount,currency){
 var ctx=document.getElementById(canvasId);if(!ctx)return;
 if(charts[canvasId])charts[canvasId].destroy();
-// Median as scatter points aligned to bar centers
 var medianPlugin={
 id:'medianLines',
 afterDatasetsDraw:function(chart){
@@ -448,10 +456,12 @@ data:{labels:labels,datasets:[
 {label:'Women',data:fAvg,backgroundColor:FEMALE_A,borderRadius:4,borderSkipped:false}]},
 options:{responsive:true,maintainAspectRatio:false,
 plugins:{legend:{display:false},
-tooltip:{callbacks:{label:function(c){
-var med=c.datasetIndex===0?mMed[c.dataIndex]:fMed[c.dataIndex];
-return[c.dataset.label+' avg: '+currency+' '+fmt(c.parsed.y),
-'Median: '+currency+' '+fmt(med)];
+tooltip:{callbacks:{title:function(items){return items[0].label;},label:function(c){
+var isM=c.datasetIndex===0;
+var count=isM?mCount[c.dataIndex]:fCount[c.dataIndex];
+var med=isM?mMed[c.dataIndex]:fMed[c.dataIndex];
+var label=isM?'Men':'Women';
+return[label+' — '+count+' people','Avg: '+currency+' '+fmt(c.parsed.y),'Median: '+currency+' '+fmt(med)];
 }}}},
 scales:{x:{grid:{display:false},ticks:{font:{family:'Inter',size:11},color:'#6B6760'}},
 y:{grid:{color:'#F0EEE9'},ticks:{font:{family:'Inter',size:11},color:'#6B6760',callback:function(v){return currency+fmt(v);}}}}}});}
@@ -468,7 +478,9 @@ vis.map(function(r){return r.g;}),
 vis.map(function(r){return r.amm;}),
 vis.map(function(r){return r.amf;}),
 vis.map(function(r){return r.mdm;}),
-vis.map(function(r){return r.mdf;}),cur);}
+vis.map(function(r){return r.mdf;}),
+vis.map(function(r){return r.nm;}),
+vis.map(function(r){return r.nf;}),cur);}
 var redEl=document.getElementById('redacted-grade-'+geo);
 if(redEl&&hidden.length>0){
 redEl.innerHTML='<div class="redacted-row">🔒 Not shown (privacy threshold): '+hidden.map(function(r){return r.g+' ('+r.nm+'M / '+r.nf+'F)';}).join(' · ')+'</div>';}}
@@ -484,7 +496,9 @@ vis.map(function(r){return r.j;}),
 vis.map(function(r){return r.amm;}),
 vis.map(function(r){return r.amf;}),
 vis.map(function(r){return r.mdm;}),
-vis.map(function(r){return r.mdf;}),cur);}
+vis.map(function(r){return r.mdf;}),
+vis.map(function(r){return r.nm;}),
+vis.map(function(r){return r.nf;}),cur);}
 
 function renderQ(id,rows){
 var el=document.getElementById(id);if(!el)return;
