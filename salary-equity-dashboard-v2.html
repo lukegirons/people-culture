@@ -499,7 +499,8 @@ vis.map(function(r){return r.nm;}),
 vis.map(function(r){return r.nf;}),cur);}
 var redEl=document.getElementById('redacted-grade-'+geo);
 if(redEl&&hidden.length>0){
-redEl.innerHTML='<div class="redacted-row">🔒 Not shown (privacy threshold): '+hidden.map(function(r){return r.g+' ('+r.nm+'M / '+r.nf+'F)';}).join(' · ')+'</div>';}}
+var extraNote = (geo==='e') ? ' · M4-M5 shows men only — the 1 woman at this level is below the privacy threshold.' : '';
+redEl.innerHTML='<div class="redacted-row">🔒 Not shown (privacy threshold): '+hidden.map(function(r){return r.g+' ('+r.nm+'M / '+r.nf+'F)';}).join(' · ')+extraNote+'</div>';}}
 
 function renderJfChart(geo){
 var d=D[geo];var cur=geo==='n'?'USD':'€';
