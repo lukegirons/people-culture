@@ -164,10 +164,10 @@ h1 em{font-style:italic;color:#8BA8F5}
 <div class="card">
 <div class="ct">Average base salary by work level · Global (€, USD converted at 1 USD = 0.857 EUR — May 2026 rate)</div>
 <div class="notes" style="margin-bottom:16px"><div class="nt">How to read this chart</div><ul>
-<li>Bar height = <strong>average base salary</strong> for that gender at that work level. The horizontal line across each bar = <strong>median salary</strong>. When mean and median differ significantly, the median is the more representative figure.</li>
-<li>Only work levels where both men and women each have at least 2 people are shown. Levels below this threshold are listed at the bottom of the chart to protect individual privacy.</li>
-<li>North American salaries (USD) have been converted to EUR using the May 2026 exchange rate (1 USD = 0.857 EUR) for comparability. Some variation may still reflect geographic market differences rather than gender-based pay gaps — use the Europe view for a currency-pure analysis.</li>
-<li><strong>M5 - Director:</strong> the 2 women at this level are based in different geographies (one Europe, one North America). The apparent gap of -67% reflects the salary market difference between the two locations, not a structural pay advantage for women at this level. Use the Europe view for a within-market comparison.</li>
+<li>Bar height = <strong>average base salary</strong> for that gender at that work level. The horizontal line = <strong>median salary</strong>. When mean and median differ significantly, the median is the more representative figure.</li>
+<li>Where individual work levels had too few people to show data safely, we have grouped adjacent and comparable levels into broader bands.</li>
+<li>Only levels where both genders have at least 2 people are shown. <strong>P6-P7</strong> and <strong>M6-M7-M8</strong> show men only (insufficient women at these levels).</li>
+<li>North American salaries (USD) have been converted to EUR using the May 2026 exchange rate (1 USD = 0.857 EUR). Some variation may reflect geographic market differences rather than gender-based pay gaps — use the Europe view for a currency-pure analysis.</li>
 </ul></div>
 <div class="chart-legend">
 <div class="cl-item"><div class="cl-bar" style="background:var(--male)"></div>Men — avg salary</div>
@@ -184,7 +184,8 @@ h1 em{font-style:italic;color:#8BA8F5}
 <div class="ct">Average base salary by work level · Europe (€)</div>
 <div class="notes" style="margin-bottom:16px"><div class="nt">How to read this chart</div><ul>
 <li>Bar height = <strong>average base salary</strong>. The horizontal line = <strong>median salary</strong>.</li>
-<li>Work levels where either men or women number fewer than 2 are not shown (privacy threshold). Hidden levels are listed below the chart.</li></ul></div>
+<li>Where individual work levels had too few people to show data safely, we have grouped adjacent and comparable levels into broader bands.</li>
+<li><strong>P6-P7</strong> is not shown — fewer than 2 people of each gender. <strong>M4-M5, M6-M7-M8</strong> show men only (insufficient women at these levels).</li></ul></div>
 <div class="chart-legend">
 <div class="cl-item"><div class="cl-bar" style="background:var(--male)"></div>Men — avg salary</div>
 <div class="cl-item"><div class="cl-bar" style="background:var(--female)"></div>Women — avg salary</div>
@@ -198,7 +199,18 @@ h1 em{font-style:italic;color:#8BA8F5}
 <div class="blk" id="grade-n">
 <div class="card">
 <div class="ct">Average base salary by work level · North America (USD)</div>
-<div class="wb">⚠️ <span>North America has fewer than 2 people of at least one gender at every work level. No salary data is shown to protect individual privacy. Use the Global view (with EUR conversion) or the Europe view for pay gap analysis.</span></div>
+<div class="notes" style="margin-bottom:16px"><div class="nt">How to read this chart</div><ul>
+<li>Bar height = <strong>average base salary</strong>. The horizontal line = <strong>median salary</strong>.</li>
+<li>Only <strong>P4</strong> has enough people of both genders to show data (4 men, 2 women). All other levels are below the privacy threshold of 2 people per gender.</li>
+<li>North America has 22 employees total — small group sizes mean individual data points have a significant impact on averages.</li>
+</ul></div>
+<div class="chart-legend">
+<div class="cl-item"><div class="cl-bar" style="background:var(--male)"></div>Men — avg salary</div>
+<div class="cl-item"><div class="cl-bar" style="background:var(--female)"></div>Women — avg salary</div>
+<div class="cl-item"><div style="width:16px;height:0;border-top:2px dashed #1A1916;margin-top:6px"></div><span style="margin-left:4px">Median salary</span></div>
+</div>
+<div class="chart-wrap"><div class="chart-inner"><canvas id="chart-grade-n"></canvas></div></div>
+<div id="redacted-grade-n"></div>
 </div>
 </div>
 </div>
@@ -212,8 +224,9 @@ h1 em{font-style:italic;color:#8BA8F5}
 <div class="ct">Average base salary by function · Global (€, USD converted at May 2026 rate)</div>
 <div class="notes" style="margin-bottom:16px"><div class="nt">How to read this chart</div><ul>
 <li>Bar height = <strong>average base salary</strong>. The horizontal line = <strong>median salary</strong>.</li>
-<li>Only functions where both men and women each have at least 2 people are shown, or where a single-gender group has at least 3 people. Hidden: <strong>Top Management</strong> (pay data not shown in any view).</li>
-<li><strong>IT</strong> has no women — the bar shows men only. <strong>Marketing</strong> and <strong>Sales, CS &amp; Support</strong> include both European (€) and North American (USD) salaries converted to EUR — apparent gaps in these functions may partly reflect geographic salary market differences rather than gender-based pay inequity. Use the Europe view for a within-market comparison.</li>
+<li>Only functions where both men and women each have at least 2 people are shown, or where a single-gender group has at least 3 people.</li>
+<li><strong>IT</strong> and <strong>Top Management</strong> have no women — bars show men only.</li>
+<li>As this view includes both European and North American salaries (converted to EUR), gaps in these functions reflect geographic salary market differences. Use the Europe view for a within-market comparison.</li>
 <li>Marketing shows a large apparent gap — this is largely explained by 5 of 6 men being based in North America (higher salary market) vs. most women being Europe-based. Use the Europe view for a cleaner picture.</li>
 </ul></div>
 <div class="chart-legend">
@@ -230,7 +243,8 @@ h1 em{font-style:italic;color:#8BA8F5}
 <div class="ct">Average base salary by function · Europe (€)</div>
 <div class="notes" style="margin-bottom:16px"><div class="nt">How to read this chart</div><ul>
 <li>Bar height = <strong>average base salary</strong>. The horizontal line = <strong>median salary</strong>.</li>
-<li>Functions not shown: <strong>Top Management</strong> (pay data not shown), <strong>IT</strong> (no women — shown in Global view only), <strong>Marketing</strong> (only 1 man in Europe — below threshold).</li>
+<li>Functions not shown: <strong>Marketing</strong> (only 1 man in Europe — below threshold).</li>
+<li><strong>IT</strong> and <strong>Top Management</strong> have no women — bars show men only.</li>
 </ul></div>
 <div class="chart-legend">
 <div class="cl-item"><div class="cl-bar" style="background:var(--male)"></div>Men — avg salary</div>
@@ -300,7 +314,8 @@ h1 em{font-style:italic;color:#8BA8F5}
 <ul>
 <li><strong>Compensation metric:</strong> All figures show annual base salary only (FTE-adjusted for part-time employees). Variable compensation is not included here — bonus structures and on-target earnings are already documented on Confluence by role and level (<a href="https://growens.atlassian.net/wiki/spaces/INET/pages/3731095561/Variable+Compensation+Systems?atlOrigin=eyJpIjoiYzhhNTE1ZmUzN2QzNDk4MmI3MWIyZjYxMDFlNTFiZTQiLCJwIjoiYyJ9" target="_blank" style="color:var(--blue)">Variable Compensation Systems</a>). Monthly remote work allowances for fully remote employees are also excluded.</li>
 <li><strong>Currency conversion:</strong> In the Global view, North American salaries (USD) are converted to EUR using the May 2026 reference rate (1 USD = 0.857 EUR / 1 EUR = 1.1673 USD). Europe figures are always in EUR. North America figures are always in USD. Some residual geographic variation in the Global view may reflect salary market differences rather than gender gaps — use the regional views for within-market comparisons.</li>
-<li><strong>Single-gender groups:</strong> Some functions and work levels have populations of one gender only. Where the group has at least 3 people, average and median salary are shown for that gender. Top Management pay data is not shown in any view regardless of group size. All other groups below 2 people per gender show headcount only, to prevent identification of individuals.</li>
+<li><strong>Work level aggregation:</strong> Adjacent levels with insufficient data have been grouped: P1+P2, M1+M2, M4+M5, M6+M7+M8. P3, P4, P5 remain separate. This aggregation improves statistical reliability while maintaining meaningful comparisons.</li>
+<li><strong>Single-gender groups:</strong> Some functions and work levels have populations of one gender only. Where the group has at least 3 people, average and median salary are shown for that gender. Top Management pay data is not shown in any view regardless of group size. All other groups below 2 people per gender show headcount only.</li>
 <li><strong>Mean vs. median:</strong> Bar height shows the average (mean) base salary. The dashed horizontal line on each bar shows the median. When they diverge, the median is usually more representative as it is less affected by outliers.</li>
 <li><strong>Gap direction:</strong> When men's average is higher than women's, the gap is positive. When women's is higher, the gap is negative. Both are shown neutrally — some gaps reflect role mix or seniority distribution within a level, not direct pay inequity.</li>
 <li><strong>EU Directive 2023/970:</strong> This dashboard is designed to meet the transparency and information rights obligations of the EU Pay Transparency Directive, including workforce composition, pay gap by category, and quartile distribution disclosures. Under the Directive, every employee has the right to request the average pay levels disaggregated by gender for their own comparable work category. To exercise this right, write to <a href="mailto:people@growens.io" style="color:var(--blue)">people@growens.io</a>.</li>
@@ -331,20 +346,15 @@ wf:{total:143,nm:92,nf:51,nm_mgr:31,nf_mgr:10,nm_promo:25,nf_promo:11,pct_m:27.2
 jf:[{l:'Product Development',m:45,f:12},{l:'Sales, CS & Support',m:16,f:12},{l:'AFC & Legal',m:6,f:9},{l:'Marketing',m:6,f:12},{l:'IT',m:12,f:0},{l:'People & Culture',m:2,f:6},{l:'Top Management',m:5,f:0}],
 mgr:[{l:'Product Development',m:11,f:1},{l:'Sales, CS & Support',m:7,f:1},{l:'AFC & Legal',m:3,f:2},{l:'Marketing',m:2,f:3},{l:'IT',m:3,f:0},{l:'People & Culture',m:0,f:3},{l:'Top Management',m:5,f:0}],
 grade:[
-{g:'P2 - Specialist',nm:8,nf:6,v:true,amm:43044,amf:42658,mdm:41655,mdf:34356},
-{g:'P3 - Senior Specialist',nm:18,nf:21,v:true,amm:45523,amf:44146,mdm:44685,mdf:45000},
-{g:'P4 - Expert',nm:23,nf:10,v:true,amm:60104,amf:58754,mdm:54200,mdf:52598},
-{g:'P5 - Lead',nm:10,nf:3,v:true,amm:75866,amf:72078,mdm:61910,mdf:70292},
-{g:'P6 - Senior Lead',nm:2,nf:1,v:false},
-{g:'P7 - Strategist',nm:1,nf:0,v:false},
-{g:'M1 - Assoc. Manager',nm:1,nf:1,v:false,note:true},
-{g:'M2 - Manager',nm:4,nf:2,v:true,amm:70101,amf:66093,mdm:63177,mdf:66093},
-{g:'M3 - Senior Manager',nm:12,nf:4,v:true,amm:72656,amf:80924,mdm:68204,mdf:71598},
-{g:'M4 - Head of',nm:3,nf:0,v:false},
-{g:'M5 - Director',nm:5,nf:2,v:true,amm:103598,amf:173194,mdm:109080,mdf:173194},
-{g:'M6 - Sr. Director',nm:1,nf:0,v:false},
-{g:'M7 - VP',nm:2,nf:0,v:false},
-{g:'M8 - Exec VP',nm:2,nf:0,v:false}],
+{g:'P1-P2',nm:8,nf:7,v:true,amm:43044,amf:40532,mdm:41655,mdf:33307},
+{g:'P3',nm:18,nf:21,v:true,amm:45523,amf:44146,mdm:44685,mdf:45000},
+{g:'P4',nm:23,nf:10,v:true,amm:60104,amf:58754,mdm:54200,mdf:52598},
+{g:'P5',nm:10,nf:3,v:true,amm:75866,amf:72078,mdm:61910,mdf:70292},
+{g:'P6-P7',nm:3,nf:1,v:true,amm:100309,amf:null,mdm:112225,mdf:null,menOnly:true},
+{g:'M1-M2',nm:5,nf:3,v:true,amm:67017,amf:58396,mdm:59659,mdf:55000},
+{g:'M3',nm:12,nf:4,v:true,amm:72656,amf:80924,mdm:68204,mdf:71598},
+{g:'M4-M5',nm:8,nf:2,v:true,amm:128698,amf:173194,mdm:111780,mdf:173194},
+{g:'M6-M7-M8',nm:5,nf:0,v:true,amm:251544,amf:null,mdm:252720,mdf:null}],
 jft:[
 {j:'AFC & Legal',nm:6,nf:9,v:true,amm:64852,amf:53038,mdm:60729,mdf:43713},
 {j:'IT',nm:12,nf:0,v:true,amm:56951,amf:null,mdm:54316,mdf:null},
@@ -352,7 +362,7 @@ jft:[
 {j:'People & Culture',nm:2,nf:6,v:true,amm:40000,amf:66318,mdm:40000,mdf:56979},
 {j:'Product Development',nm:45,nf:12,v:true,amm:58236,amf:51596,mdm:54820,mdf:50000},
 {j:'Sales, CS & Support',nm:16,nf:12,v:true,amm:90095,amf:50784,mdm:78500,mdf:39298},
-{j:'Top Management',nm:5,nf:0,v:false}],
+{j:'Top Management',nm:5,nf:0,v:true,amm:251544,amf:null,mdm:252720,mdf:null}],
 q:[{q:'Q1 (Lowest)',m:17,f:19,pm:18.5,pf:37.3},{q:'Q2',m:22,f:14,pm:23.9,pf:27.5},{q:'Q3',m:28,f:8,pm:30.4,pf:15.7},{q:'Q4 (Highest)',m:25,f:10,pm:27.2,pf:19.6}]
 },
 e:{
@@ -360,34 +370,39 @@ wf:{total:121,nm:76,nf:45,nm_mgr:25,nf_mgr:8,nm_promo:20,nf_promo:10,pct_m:26.3,
 jf:[{l:'Product Development',m:44,f:12},{l:'Sales, CS & Support',m:7,f:10},{l:'AFC & Legal',m:6,f:9},{l:'Marketing',m:1,f:9},{l:'IT',m:12,f:0},{l:'People & Culture',m:2,f:5},{l:'Top Management',m:4,f:0}],
 mgr:[{l:'Product Development',m:11,f:1},{l:'Sales, CS & Support',m:4,f:0},{l:'AFC & Legal',m:3,f:2},{l:'Marketing',m:0,f:2},{l:'IT',m:3,f:0},{l:'People & Culture',m:0,f:3},{l:'Top Management',m:4,f:0}],
 grade:[
-{g:'P2 - Specialist',nm:6,nf:5,v:true,amm:37405,amf:34142,mdm:37654,mdf:33307},
-{g:'P3 - Senior Specialist',nm:17,nf:21,v:true,amm:43766,amf:44146,mdm:44370,mdf:45000},
-{g:'P4 - Expert',nm:19,nf:8,v:true,amm:52536,amf:51404,mdm:52000,mdf:50598},
-{g:'P5 - Lead',nm:8,nf:2,v:true,amm:60191,amf:63570,mdm:61098,mdf:63570},
-{g:'P6 - Senior Lead',nm:1,nf:1,v:false},
-{g:'M1 - Assoc. Manager',nm:1,nf:1,v:false,note:true},
-{g:'M2 - Manager',nm:3,nf:1,v:false},
-{g:'M3 - Senior Manager',nm:11,nf:4,v:true,amm:67579,amf:80924,mdm:68196,mdf:71598},
-{g:'M4 - Head of',nm:1,nf:0,v:false},
-{g:'M5 - Director',nm:5,nf:1,v:false},
-{g:'M6 - Sr. Director',nm:1,nf:0,v:false},
-{g:'M7 - VP',nm:1,nf:0,v:false},
-{g:'M8 - Exec VP',nm:2,nf:0,v:false}],
+{g:'P1-P2',nm:6,nf:6,v:true,amm:37405,amf:33081,mdm:37654,mdf:33154},
+{g:'P3',nm:17,nf:21,v:true,amm:43766,amf:44146,mdm:44370,mdf:45000},
+{g:'P4',nm:19,nf:8,v:true,amm:52536,amf:51404,mdm:52000,mdf:50598},
+{g:'P5',nm:8,nf:2,v:true,amm:60191,amf:63570,mdm:61098,mdf:63570},
+{g:'P6-P7',nm:1,nf:1,v:false},
+{g:'M1-M2',nm:4,nf:2,v:true,amm:57214,amf:49000,mdm:57169,mdf:49000},
+{g:'M3',nm:11,nf:4,v:true,amm:67579,amf:80924,mdm:68196,mdf:71598},
+{g:'M4-M5',nm:6,nf:1,v:true,amm:102063,amf:null,mdm:101735,mdf:null},
+{g:'M6-M7-M8',nm:4,nf:0,v:true,amm:251250,amf:null,mdm:275000,mdf:null}],
 jft:[
 {j:'AFC & Legal',nm:6,nf:9,v:true,amm:64852,amf:53038,mdm:60729,mdf:43713},
-{j:'IT',nm:12,nf:0,v:false},
+{j:'IT',nm:12,nf:0,v:true,amm:56951,amf:null,mdm:54316,mdf:null},
 {j:'Marketing',nm:1,nf:9,v:false},
 {j:'People & Culture',nm:2,nf:5,v:true,amm:40000,amf:61762,mdm:40000,mdf:48957},
 {j:'Product Development',nm:44,nf:12,v:true,amm:57009,amf:51596,mdm:53660,mdf:50000},
 {j:'Sales, CS & Support',nm:7,nf:10,v:true,amm:56219,amf:41981,mdm:54679,mdf:38959},
-{j:'Top Management',nm:4,nf:0,v:false}],
+{j:'Top Management',nm:4,nf:0,v:true,amm:251250,amf:null,mdm:275000,mdf:null}],
 q:[{q:'Q1 (Lowest)',m:17,f:19,pm:22.4,pf:42.2},{q:'Q2',m:22,f:14,pm:28.9,pf:31.1},{q:'Q3',m:27,f:8,pm:35.5,pf:17.8},{q:'Q4 (Highest)',m:10,f:4,pm:13.2,pf:8.9}]
 },
 n:{
 wf:{total:22,nm:16,nf:6,nm_mgr:6,nf_mgr:2,nm_promo:5,nf_promo:1,pct_m:31.2,pct_f:16.7,avg_pay_pm:135500,avg_pay_pf:259500},
 jf:[{l:'Sales, CS & Support',m:9,f:2},{l:'Marketing',m:5,f:3},{l:'Top Management',m:1,f:0},{l:'Product Development',m:1,f:0},{l:'People & Culture',m:0,f:1}],
 mgr:[{l:'Sales, CS & Support',m:3,f:1},{l:'Marketing',m:2,f:1},{l:'Top Management',m:1,f:0}],
-grade:[],
+grade:[
+{g:'P1-P2',nm:2,nf:1,v:false},
+{g:'P3',nm:1,nf:0,v:false},
+{g:'P4',nm:4,nf:2,v:true,amm:112125,amf:102900,mdm:118000,mdf:102900},
+{g:'P5',nm:2,nf:1,v:false},
+{g:'P6-P7',nm:2,nf:0,v:false},
+{g:'M1-M2',nm:1,nf:1,v:false},
+{g:'M3',nm:1,nf:0,v:false},
+{g:'M4-M5',nm:2,nf:1,v:false},
+{g:'M6-M7-M8',nm:1,nf:0,v:false}],
 jft:[{j:'Marketing',nm:5,nf:3,v:true,amm:171247,amf:155100,mdm:150000,mdf:115300}],
 q:[{q:'Q1 (Lowest)',m:0,f:0,pm:0,pf:0},{q:'Q2',m:0,f:0,pm:0,pf:0},{q:'Q3',m:1,f:0,pm:6.2,pf:0},{q:'Q4 (Highest)',m:15,f:6,pm:93.8,pf:100}]
 }};
