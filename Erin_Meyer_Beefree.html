@@ -14,7 +14,7 @@
   .dot{width:8px;height:8px;border-radius:50%;background:rgba(119,71,255,0.25);cursor:pointer;transition:all .2s}
   .dot.active{background:var(--uv);width:24px;border-radius:4px}
   .nav-btns{display:flex;gap:8px}
-  .btn{background:white;border:0.5px solid var(--border);border-radius:var(--radius-sm);padding:8px 16px;font-size:13px;font-weight:500;color:var(--uv);cursor:pointer;transition:all .15s;display:flex;align-items:center;gap:6px}
+  .btn{background:white;border:0.5px solid var(--border);border-radius:var(--radius-sm);padding:8px 16px;font-size:13px;font-weight:500;color:var(--uv);cursor:pointer;transition:all .15s}
   .btn:hover{background:var(--uv-light)}
   .btn:disabled{opacity:0.35;cursor:default}
   .slide{display:none;background:white;border-radius:var(--radius);border:0.5px solid var(--border);overflow:hidden;min-height:480px}
@@ -24,7 +24,6 @@
   .slide-title{font-size:28px;font-weight:600;color:var(--text);line-height:1.2}
   .slide-subtitle{font-size:15px;color:var(--text-sec);margin-top:8px;line-height:1.5}
   .slide-body{padding:32px 44px;flex:1;display:flex;flex-direction:column;gap:20px}
-  .pill{display:inline-flex;align-items:center;gap:6px;background:var(--uv-light);color:var(--uv-dark);font-size:12px;font-weight:500;padding:4px 12px;border-radius:20px}
   .card{background:var(--bg-sec);border:0.5px solid var(--border);border-radius:var(--radius-sm);padding:20px 24px}
   .card-title{font-size:13px;font-weight:600;color:var(--text);margin-bottom:6px;display:flex;align-items:center;gap:8px}
   .card-body{font-size:14px;color:var(--text-sec);line-height:1.6}
@@ -36,13 +35,7 @@
   .accent-bar{width:4px;background:var(--uv);border-radius:2px;flex-shrink:0}
   .accent-bar.coral{background:var(--coral)}
   .highlight-box{background:linear-gradient(135deg,#7747FF08,#7747FF16);border:0.5px solid rgba(119,71,255,0.2);border-radius:var(--radius-sm);padding:20px 24px}
-  .big-num{font-size:42px;font-weight:700;color:var(--uv);line-height:1}
-  .big-num.coral{color:var(--coral)}
-  .tag-row{display:flex;gap:8px;flex-wrap:wrap}
-  .tag{background:white;border:0.5px solid var(--border);color:var(--text-sec);font-size:12px;padding:4px 12px;border-radius:20px}
-  .tag.active{background:var(--uv-light);color:var(--uv);border-color:rgba(119,71,255,0.3)}
   .divider{width:100%;height:0.5px;background:var(--border)}
-  .source-note{font-size:11px;color:var(--text-muted);margin-top:auto;padding-top:12px}
   .row{display:flex;gap:16px}
   .row .accent-bar{align-self:stretch}
   .uv-text{color:var(--uv);font-weight:600}
@@ -50,12 +43,12 @@
   .footer{padding:20px 44px 28px;border-top:0.5px solid var(--border);display:flex;justify-content:space-between;align-items:center}
   .footer-left{font-size:12px;color:var(--text-muted)}
   .footer-right{font-size:12px;font-weight:500;color:var(--uv)}
-  .icon-circle{width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:18px}
+  .icon-circle{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:14px}
   .ic-uv{background:var(--uv-light);color:var(--uv)}
-  .ic-coral{background:var(--coral-light);color:var(--coral)}
   .q-item{display:flex;align-items:flex-start;gap:14px;padding:14px 0;border-bottom:0.5px solid var(--border)}
   .q-item:last-child{border-bottom:none}
   .counter{font-size:11px;font-weight:500;color:var(--text-muted);padding:0 4px}
+  .pilot-badge{display:inline-flex;align-items:center;gap:5px;background:var(--coral-light);color:var(--coral);font-size:11px;font-weight:600;padding:3px 10px;border-radius:20px;margin-bottom:8px}
 </style>
 
 <div class="deck">
@@ -64,8 +57,8 @@
     <div style="display:flex;align-items:center;gap:12px">
       <span class="counter" id="counter">1 / 8</span>
       <div class="nav-btns">
-        <button class="btn" id="prev" onclick="go(-1)">← prev</button>
-        <button class="btn" id="next" onclick="go(1)">next →</button>
+        <button class="btn" id="prev" onclick="go(-1)">prev</button>
+        <button class="btn" id="next" onclick="go(1)">next</button>
       </div>
     </div>
   </div>
@@ -78,11 +71,11 @@
           <div style="width:32px;height:32px;background:var(--uv);border-radius:8px;display:flex;align-items:center;justify-content:center">
             <span style="color:white;font-size:14px;font-weight:700">B</span>
           </div>
-          <span style="font-size:13px;font-weight:500;color:var(--text-sec)">Beefree People & Culture</span>
+          <span style="font-size:13px;font-weight:500;color:var(--text-sec)">Beefree People and Culture</span>
         </div>
         <div style="font-size:13px;font-weight:500;color:var(--uv);letter-spacing:.06em;text-transform:uppercase;margin-bottom:16px">Management Session</div>
         <h1 style="font-size:38px;font-weight:700;color:var(--text);line-height:1.15;max-width:560px">Sharpening our leadership toolkit: insights from Erin Meyer</h1>
-        <p style="font-size:16px;color:var(--text-sec);margin-top:16px;max-width:480px;line-height:1.6">Food for thought — inspired by Erin Meyer's talk at #PeopleManagementForum (CFMT, June 2026)</p>
+        <p style="font-size:15px;color:var(--text-sec);margin-top:16px;max-width:500px;line-height:1.6">Inspired by Erin Meyer's talk at #PeopleManagementForum (CFMT, June 2026), and a continuation of the conversation we started at the 2024 company retreat.</p>
       </div>
       <div style="display:flex;align-items:center;gap:32px;padding-top:32px;border-top:0.5px solid var(--border)">
         <div><div style="font-size:11px;color:var(--text-muted);margin-bottom:4px">Presented by</div><div style="font-size:13px;font-weight:500;color:var(--text)">Luca Gironi</div></div>
@@ -105,7 +98,7 @@
       <div class="grid-2" style="flex:1">
         <div class="card" style="border-left:3px solid var(--uv);border-radius:0 var(--radius-sm) var(--radius-sm) 0">
           <div class="card-title"><span style="font-size:18px">🏭</span> Yesterday's priority</div>
-          <div class="card-body" style="font-size:15px">Eliminate errors. Maximize consistency. One deviation = one failure.</div>
+          <div class="card-body" style="font-size:15px">Eliminate errors. Maximize consistency. One deviation, one failure.</div>
           <div style="margin-top:12px;font-size:12px;color:var(--text-muted)">Made sense in a factory. Still dominates most orgs.</div>
         </div>
         <div class="card" style="border-left:3px solid var(--coral);border-radius:0 var(--radius-sm) var(--radius-sm) 0">
@@ -115,7 +108,7 @@
         </div>
       </div>
       <div class="highlight-box">
-        <div style="font-size:14px;color:var(--text-sec);line-height:1.6">A culture of <span class="uv-text">innovation</span> is in fundamental tension with a culture of <span class="coral-text">error elimination</span>. Most organizations try to have both — and end up with neither. The question is: where do we want to sit on that dial?</div>
+        <div style="font-size:14px;color:var(--text-sec);line-height:1.6">A culture of <span class="uv-text">innovation</span> is in fundamental tension with a culture of <span class="coral-text">error elimination</span>. Most organizations try to have both, and end up with neither. The question is: where do we want to sit on that dial?</div>
       </div>
     </div>
     <div class="footer">
@@ -128,7 +121,7 @@
   <div class="slide" id="s2">
     <div class="slide-header">
       <div class="slide-tag">02 — Framework</div>
-      <div class="slide-title">Three steps to freedom & responsibility</div>
+      <div class="slide-title">Three ingredients for a high-performing culture</div>
       <div class="slide-subtitle">Each step unlocks the next. You can't skip ahead.</div>
     </div>
     <div class="slide-body">
@@ -137,25 +130,28 @@
           <div class="step-num">1</div>
           <div>
             <div style="font-size:15px;font-weight:600;color:var(--text)">+ Increase talent density</div>
-            <div style="font-size:14px;color:var(--text-sec);margin-top:4px;line-height:1.5">Hire fewer people, but ones we're 100% convinced of. A great workplace is great colleagues — not perks.</div>
+            <div style="font-size:14px;color:var(--text-sec);margin-top:4px;line-height:1.5">Hire fewer people, but ones we're 100% convinced of. A great workplace is great colleagues, not perks.</div>
           </div>
         </div>
         <div class="card" style="display:flex;align-items:flex-start;gap:16px">
           <div class="step-num">2</div>
           <div>
             <div style="font-size:15px;font-weight:600;color:var(--text)">+ Increase candor</div>
-            <div style="font-size:14px;color:var(--text-sec);margin-top:4px;line-height:1.5">Create a culture where people give and ask for honest feedback — routinely, not only in performance cycles.</div>
+            <div style="font-size:14px;color:var(--text-sec);margin-top:4px;line-height:1.5">Create a culture where people give and ask for honest feedback, routinely, not only in performance cycles.</div>
           </div>
         </div>
         <div class="card" style="display:flex;align-items:flex-start;gap:16px">
           <div class="step-num coral">3</div>
           <div>
-            <div style="font-size:15px;font-weight:600;color:var(--text)">− Remove decision-making controls</div>
-            <div style="font-size:14px;color:var(--text-sec);margin-top:4px;line-height:1.5">Give people the context to act. Move from pyramid to tree. Freedom doesn't reduce accountability — it creates it.</div>
+            <div style="font-size:15px;font-weight:600;color:var(--text)">Context, not control</div>
+            <div style="font-size:14px;color:var(--text-sec);margin-top:4px;line-height:1.5">Give people the context to act autonomously. Freedom doesn't reduce accountability, it creates it.</div>
           </div>
         </div>
       </div>
-      <div class="source-note">Adapted from Erin Meyer & Reed Hastings, "No Rules Rules" (Netflix Culture Model)</div>
+      <div class="row">
+        <div class="accent-bar"></div>
+        <div style="font-size:13px;color:var(--text-sec);line-height:1.5">This is a continuation of the conversation we started at the 2024 company retreat. "Context, not control" was at the center of that moment too. Today we go deeper.</div>
+      </div>
     </div>
     <div class="footer">
       <div class="footer-left">Erin Meyer @ CFMT, June 2026</div>
@@ -167,27 +163,23 @@
   <div class="slide" id="s3">
     <div class="slide-header">
       <div class="slide-tag">03 — Talent density</div>
-      <div class="slide-title">Raising the bar — intentionally</div>
+      <div class="slide-title">Raising the bar, intentionally</div>
       <div class="slide-subtitle">Not a one-time decision. An ongoing organizational discipline.</div>
     </div>
     <div class="slide-body">
-      <div class="grid-3" style="flex:1;align-items:start">
+      <div class="grid-2" style="flex:1;align-items:start">
         <div class="card">
-          <div class="card-title"><div class="icon-circle ic-uv" style="width:28px;height:28px;font-size:14px">🎯</div> Hire fewer, better</div>
-          <div class="card-body">Fewer hires we're 100% convinced of — strong skills, strong fit. Not backfilling by default.</div>
+          <div class="card-title"><div class="icon-circle ic-uv">🎯</div> Hire fewer, better</div>
+          <div class="card-body">Fewer hires we're 100% convinced of, strong skills, strong fit. Not backfilling by default.</div>
         </div>
         <div class="card">
-          <div class="card-title"><div class="icon-circle ic-uv" style="width:28px;height:28px;font-size:14px">📈</div> Coach toward excellence</div>
-          <div class="card-body">Intentional coaching, feedback, and performance evaluation — not once a year, but as a continuous practice.</div>
-        </div>
-        <div class="card">
-          <div class="card-title"><div class="icon-circle ic-uv" style="width:28px;height:28px;font-size:14px">🔁</div> The Keeper Test</div>
-          <div class="card-body" style="font-style:italic;color:var(--text-sec)">"If this person told me they were leaving for a similar role, would I fight hard to keep them?"</div>
+          <div class="card-title"><div class="icon-circle ic-uv">📈</div> Coach toward excellence</div>
+          <div class="card-body">Intentional coaching, feedback, and performance evaluation, not once a year, but as a continuous practice.</div>
         </div>
       </div>
       <div class="row">
         <div class="accent-bar"></div>
-        <div style="font-size:14px;color:var(--text-sec);line-height:1.6">High performers are energized by other high performers. The team environment itself is a retention and engagement lever — and it compounds over time.</div>
+        <div style="font-size:14px;color:var(--text-sec);line-height:1.6">High performers are energized by other high performers. The team environment itself is a retention and engagement lever, and it compounds over time.</div>
       </div>
     </div>
     <div class="footer">
@@ -212,32 +204,20 @@
         </div>
       </div>
       <div class="divider"></div>
-      <div style="font-size:13px;font-weight:600;color:var(--text);margin-bottom:10px">Three feedback rituals from Erin's session — practical, low-lift</div>
-      <div style="display:flex;flex-direction:column;gap:10px">
-        <div class="card" style="display:flex;align-items:flex-start;gap:14px">
-          <div class="step-num" style="font-size:12px;flex-shrink:0">1</div>
-          <div>
-            <div style="font-size:13px;font-weight:600;color:var(--text)">20-minute 1:1 feedback rounds</div>
-            <div style="font-size:13px;color:var(--text-sec);margin-top:3px;line-height:1.5">Each team member schedules a short 1:1 with every other member. One thing going well, one thing to improve. At the end, everyone shares one takeaway they'll act on.</div>
-          </div>
-        </div>
-        <div class="card" style="display:flex;align-items:flex-start;gap:14px">
-          <div class="step-num" style="font-size:12px;flex-shrink:0">2</div>
-          <div>
-            <div style="font-size:13px;font-weight:600;color:var(--text)">Quick feedback rounds in team meetings</div>
-            <div style="font-size:13px;color:var(--text-sec);margin-top:3px;line-height:1.5">Pairs share one thing the other does well + one improvement idea in 5 minutes. At the next meeting: report back on what you worked on. If done regularly, feedback becomes the baseline.</div>
-          </div>
-        </div>
-        <div class="card" style="display:flex;align-items:flex-start;gap:14px">
-          <div class="step-num" style="font-size:12px;flex-shrink:0">3</div>
-          <div>
-            <div style="font-size:13px;font-weight:600;color:var(--text)">360° feedback dinners (Netflix-style)</div>
-            <div style="font-size:13px;color:var(--text-sec);margin-top:3px;line-height:1.5">The whole team takes turns receiving feedback publicly. Sounds scary. Works because when everyone's watching, people are generous and supportive — no one's singled out.</div>
-          </div>
+      <div style="font-size:13px;font-weight:600;color:var(--text);margin-bottom:4px">A feedback ritual worth trying</div>
+      <div style="font-size:13px;color:var(--text-sec);margin-bottom:14px;line-height:1.5">Erin's recommendation: start small, pick one ritual, make it regular. The one with the highest potential ROI for us:</div>
+      <div class="card" style="display:flex;align-items:flex-start;gap:16px">
+        <div class="step-num" style="flex-shrink:0;font-size:10px">20'</div>
+        <div>
+          <div style="font-size:14px;font-weight:600;color:var(--text);margin-bottom:6px">1:1 feedback rounds across the team</div>
+          <div style="font-size:13px;color:var(--text-sec);line-height:1.6">Each team member schedules a short 1:1 with every other member. One thing going well. One thing to improve. At the end, everyone shares one takeaway they'll act on, and asks the team for support.</div>
         </div>
       </div>
-      <div class="highlight-box" style="padding:14px 18px">
-        <div style="font-size:12px;color:var(--text-sec);line-height:1.5">💡 <span style="font-weight:500;color:var(--text)">A proposal from Enrica:</span> run a small team feedback circle pilot — 1:1s across the team, one area to work on, share intentions at the next monthly meeting and ask the team for support.</div>
+      <div class="highlight-box" style="padding:16px 20px;display:flex;align-items:flex-start;gap:12px">
+        <div>
+          <div class="pilot-badge">🧪 P&C Pilot</div>
+          <div style="font-size:13px;color:var(--text-sec);line-height:1.5">The People and Culture team is already running this as a pilot. The goal is to learn from the experience before proposing it more broadly.</div>
+        </div>
       </div>
     </div>
     <div class="footer">
@@ -249,8 +229,8 @@
   <!-- SLIDE 6: Pyramids & Trees -->
   <div class="slide" id="s5">
     <div class="slide-header">
-      <div class="slide-tag">05 — Context & autonomy</div>
-      <div class="slide-title">Pyramids & trees: two types of organizations</div>
+      <div class="slide-tag">05 — Context and autonomy</div>
+      <div class="slide-title">Pyramids and trees: two types of organizations</div>
       <div class="slide-subtitle">The model that fits depends on what you're optimizing for.</div>
     </div>
     <div class="slide-body">
@@ -258,21 +238,19 @@
         <div class="card" style="border-top:3px solid var(--text-muted)">
           <div style="font-size:20px;margin-bottom:8px">🔺</div>
           <div style="font-size:15px;font-weight:600;color:var(--text);margin-bottom:8px">The pyramid</div>
-          <div style="font-size:14px;color:var(--text-sec);line-height:1.6">Decisions climb up for approval. Works well in safety-critical environments where consistency = safety.</div>
+          <div style="font-size:14px;color:var(--text-sec);line-height:1.6">Decisions climb up for approval. Works well in safety-critical environments where consistency equals safety.</div>
           <div style="margin-top:12px;font-size:12px;color:var(--text-muted)">Manufacturing, healthcare, aviation</div>
         </div>
         <div class="card" style="border-top:3px solid var(--uv)">
           <div style="font-size:20px;margin-bottom:8px">🌳</div>
           <div style="font-size:15px;font-weight:600;color:var(--uv);margin-bottom:8px">The tree</div>
-          <div style="font-size:14px;color:var(--text-sec);line-height:1.6">Leaders provide context. People at every level decide autonomously. More agile, attracts and retains top talent.</div>
+          <div style="font-size:14px;color:var(--text-sec);line-height:1.6">Leaders provide context. People at every level decide autonomously. More agile, attracts and retains great talent.</div>
           <div style="margin-top:12px;font-size:12px;color:var(--text-muted)">Knowledge work, SaaS, product orgs</div>
         </div>
       </div>
       <div class="row">
-        <div class="accent-bar"></div>
-        <div>
-          <div style="font-size:14px;color:var(--text);line-height:1.6">Structuring Massimo's monthly business updates was a step in the right direction — but viewership is still lower than we'd want. The information exists. The question is: does it reach people in a way they can actually act on?</div>
-        </div>
+        <div class="accent-bar coral"></div>
+        <div style="font-size:14px;color:var(--text);line-height:1.6">The question for us: do our people have enough context to act as <span class="uv-text">informed captains</span>? We're investing in this, but engagement and viewership of our internal business updates tell us there's still room to grow.</div>
       </div>
     </div>
     <div class="footer">
@@ -286,27 +264,27 @@
     <div class="slide-header">
       <div class="slide-tag">06 — Performance</div>
       <div class="slide-title">The performance equation</div>
-      <div class="slide-subtitle">The ceiling isn't set by your best person. The floor is set by your lowest performance.</div>
+      <div class="slide-subtitle">Team performance is shaped more by the floor than the ceiling.</div>
     </div>
     <div class="slide-body">
       <div style="display:flex;gap:20px;flex:1">
         <div class="highlight-box" style="flex:1;display:flex;flex-direction:column;justify-content:center">
-          <div class="big-num coral" style="font-size:56px">≈ 50%</div>
-          <div style="font-size:13px;color:var(--text-sec);margin-top:6px;line-height:1.5">reduction in team performance observed when a low performer is on the team</div>
-          <div style="font-size:11px;color:var(--text-muted);margin-top:8px">Prof. William Felps — UNSW Sydney</div>
+          <div style="font-size:13px;font-weight:500;color:var(--text-muted);margin-bottom:8px">Research finding</div>
+          <div style="font-size:15px;color:var(--text);line-height:1.7;font-style:italic">"The best predictor of how a team performs is not how great the best performer is. Most often it comes down to the lowest performance on the team."</div>
+          <div style="font-size:11px;color:var(--text-muted);margin-top:12px">Prof. William Felps, UNSW Sydney</div>
         </div>
         <div style="flex:1;display:flex;flex-direction:column;gap:12px">
           <div class="card">
-            <div class="card-title">Apply the Keeper Test consistently</div>
-            <div class="card-body">Not as a thought experiment — as a real input to how we manage and develop our people.</div>
-          </div>
-          <div class="card">
-            <div class="card-title">Take performance evaluation seriously</div>
-            <div class="card-body">Not as a bureaucratic cycle, but as a genuine opportunity to close gaps and set direction.</div>
+            <div class="card-title">Be intentional about performance</div>
+            <div class="card-body">Performance evaluation is a genuine opportunity to close gaps, set direction, and grow people, not just a bureaucratic cycle.</div>
           </div>
           <div class="card">
             <div class="card-title">Watch for early signals</div>
-            <div class="card-body">Poor performance is especially contagious. Address it before it spreads.</div>
+            <div class="card-body">Performance trends, positive or negative, are contagious. The earlier we act, the more we can do.</div>
+          </div>
+          <div class="card">
+            <div class="card-title">Invest in development</div>
+            <div class="card-body">Coaching people toward their best is one of the highest-leverage things a manager can do.</div>
           </div>
         </div>
       </div>
@@ -330,21 +308,21 @@
           <div class="step-num">1</div>
           <div>
             <div style="font-size:15px;font-weight:600;color:var(--text);margin-bottom:4px">On talent</div>
-            <div style="font-size:14px;color:var(--text-sec);line-height:1.6">Are we holding the bar consistently? Where might we be tolerating situations we shouldn't — either in how we hire or in how we coach and develop?</div>
+            <div style="font-size:14px;color:var(--text-sec);line-height:1.6">Are we being intentional enough about who we hire and how we develop people? Where could we raise the bar in how we coach and evaluate?</div>
           </div>
         </div>
         <div class="q-item">
           <div class="step-num">2</div>
           <div>
             <div style="font-size:15px;font-weight:600;color:var(--text);margin-bottom:4px">On candor</div>
-            <div style="font-size:14px;color:var(--text-sec);line-height:1.6">What feedback isn't being given right now — and why? Are we as managers modeling the behavior we're asking of our teams?</div>
+            <div style="font-size:14px;color:var(--text-sec);line-height:1.6">What feedback isn't being given right now, and why? Are we as managers modeling the behavior we're asking of our teams?</div>
           </div>
         </div>
         <div class="q-item">
           <div class="step-num coral">3</div>
           <div>
             <div style="font-size:15px;font-weight:600;color:var(--text);margin-bottom:4px">On context</div>
-            <div style="font-size:14px;color:var(--text-sec);line-height:1.6">Do our people have enough clarity to act as informed captains? What are we not communicating — or communicating in a way that doesn't land?</div>
+            <div style="font-size:14px;color:var(--text-sec);line-height:1.6">Do our people have enough clarity to act as informed captains? What are we not communicating, or communicating in a way that doesn't land?</div>
           </div>
         </div>
       </div>
@@ -361,35 +339,12 @@
 </div>
 
 <script>
-  const total = 8;
-  let cur = 0;
-  const dotsEl = document.getElementById('dots');
-  const counterEl = document.getElementById('counter');
-
-  for(let i=0;i<total;i++){
-    const d = document.createElement('div');
-    d.className = 'dot' + (i===0?' active':'');
-    d.onclick = ()=>goTo(i);
-    dotsEl.appendChild(d);
-  }
-
-  function goTo(n){
-    document.getElementById('s'+cur).classList.remove('active');
-    dotsEl.children[cur].classList.remove('active');
-    cur = n;
-    document.getElementById('s'+cur).classList.add('active');
-    dotsEl.children[cur].classList.add('active');
-    counterEl.textContent = (cur+1)+' / '+total;
-    document.getElementById('prev').disabled = cur===0;
-    document.getElementById('next').disabled = cur===total-1;
-  }
-
-  function go(d){ if(cur+d>=0 && cur+d<total) goTo(cur+d); }
-
-  document.getElementById('prev').disabled = true;
-
-  document.addEventListener('keydown', e=>{
-    if(e.key==='ArrowRight') go(1);
-    if(e.key==='ArrowLeft') go(-1);
-  });
+  const total=8;let cur=0;
+  const dotsEl=document.getElementById('dots');
+  const counterEl=document.getElementById('counter');
+  for(let i=0;i<total;i++){const d=document.createElement('div');d.className='dot'+(i===0?' active':'');d.onclick=()=>goTo(i);dotsEl.appendChild(d);}
+  function goTo(n){document.getElementById('s'+cur).classList.remove('active');dotsEl.children[cur].classList.remove('active');cur=n;document.getElementById('s'+cur).classList.add('active');dotsEl.children[cur].classList.add('active');counterEl.textContent=(cur+1)+' / '+total;document.getElementById('prev').disabled=cur===0;document.getElementById('next').disabled=cur===total-1;}
+  function go(d){if(cur+d>=0&&cur+d<total)goTo(cur+d);}
+  document.getElementById('prev').disabled=true;
+  document.addEventListener('keydown',e=>{if(e.key==='ArrowRight')go(1);if(e.key==='ArrowLeft')go(-1);});
 </script>
