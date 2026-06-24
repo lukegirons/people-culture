@@ -1,0 +1,222 @@
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --uv:#7747FF;--uv-light:#EDE6FF;--uv-dark:#5230CC;
+  --coral:#D85A30;--coral-light:#FAECE7;
+  --text:#1A1A2E;--text-sec:#6B6B8A;--text-muted:#9999B3;
+  --bg:#fff;--bg-sec:#F8F7FF;--border:rgba(119,71,255,0.12);
+  --r:16px;--rs:10px;
+}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#F4F2FF;min-height:100vh;display:flex;flex-direction:column;align-items:center;padding:24px 16px 48px}
+.deck{width:100%;max-width:860px}
+.nav{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;padding:0 4px}
+.dots{display:flex;gap:6px}
+.dot{width:8px;height:8px;border-radius:50%;background:rgba(119,71,255,0.25);cursor:pointer;transition:all .2s}
+.dot.on{background:var(--uv);width:24px;border-radius:4px}
+.btns{display:flex;gap:8px;align-items:center}
+.btn{background:#fff;border:0.5px solid var(--border);border-radius:var(--rs);padding:8px 16px;font-size:13px;font-weight:500;color:var(--uv);cursor:pointer;transition:all .15s}
+.btn:hover{background:var(--uv-light)}
+.btn:disabled{opacity:.35;cursor:default}
+.ctr{font-size:11px;font-weight:500;color:var(--text-muted)}
+.slide{display:none;background:#fff;border-radius:var(--r);border:0.5px solid var(--border);overflow:hidden;min-height:480px;flex-direction:column}
+.slide.on{display:flex}
+.sh{padding:36px 44px 28px;border-bottom:0.5px solid var(--border)}
+.stag{font-size:11px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--uv);margin-bottom:10px}
+.stitle{font-size:28px;font-weight:600;color:var(--text);line-height:1.2}
+.ssub{font-size:15px;color:var(--text-sec);margin-top:8px;line-height:1.5}
+.sb{padding:32px 44px;flex:1;display:flex;flex-direction:column;gap:20px}
+.card{background:var(--bg-sec);border:0.5px solid var(--border);border-radius:var(--rs);padding:20px 24px}
+.ct{font-size:13px;font-weight:600;color:var(--text);margin-bottom:6px}
+.cb{font-size:14px;color:var(--text-sec);line-height:1.6}
+.hbox{background:linear-gradient(135deg,#7747FF08,#7747FF16);border:0.5px solid rgba(119,71,255,0.2);border-radius:var(--rs);padding:20px 24px}
+.row{display:flex;gap:16px}
+.bar{width:4px;background:var(--uv);border-radius:2px;flex-shrink:0;align-self:stretch}
+.bar.c{background:var(--coral)}
+.divider{width:100%;height:0.5px;background:var(--border)}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.ft{padding:20px 44px 28px;border-top:0.5px solid var(--border);display:flex;justify-content:space-between;align-items:center}
+.fl{font-size:12px;color:var(--text-muted)}
+.fr{font-size:12px;font-weight:500;color:var(--uv)}
+.snum{width:28px;height:28px;border-radius:50%;background:var(--uv);color:#fff;font-size:11px;font-weight:600;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.snum.c{background:var(--coral)}
+.quote{font-style:italic;color:var(--text);font-size:15px;line-height:1.7;border-left:3px solid var(--coral);padding-left:16px;margin:4px 0}
+</style>
+
+<div class="deck">
+  <div class="nav">
+    <div class="dots" id="dots"></div>
+    <div class="btns">
+      <span class="ctr" id="ctr">1 / 6</span>
+      <button class="btn" id="prev" onclick="go(-1)">prev</button>
+      <button class="btn" id="next" onclick="go(1)">next</button>
+    </div>
+  </div>
+
+  <!-- SLIDE 1: Cover -->
+  <div class="slide on" id="s0">
+    <div style="padding:52px 44px 36px;flex:1;display:flex;flex-direction:column;justify-content:space-between">
+      <div>
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:32px">
+          <div style="width:32px;height:32px;background:var(--uv);border-radius:8px;display:flex;align-items:center;justify-content:center"><span style="color:#fff;font-size:14px;font-weight:700">B</span></div>
+          <span style="font-size:13px;font-weight:500;color:var(--text-sec)">Beefree Culture Corner</span>
+        </div>
+        <div style="font-size:13px;font-weight:500;color:var(--uv);letter-spacing:.06em;text-transform:uppercase;margin-bottom:16px">TGIF</div>
+        <h1 style="font-size:40px;font-weight:700;color:var(--text);line-height:1.15;max-width:560px">Work whiplash</h1>
+        <p style="font-size:16px;color:var(--text-sec);margin-top:16px;max-width:480px;line-height:1.6">Change is inevitable. Whiplash is not.</p>
+      </div>
+      <div style="display:flex;align-items:center;gap:32px;padding-top:32px;border-top:0.5px solid var(--border)">
+        <div><div style="font-size:11px;color:var(--text-muted);margin-bottom:4px">Presented by</div><div style="font-size:13px;font-weight:500;color:var(--text)">Luca Gironi</div></div>
+        <div style="width:1px;height:32px;background:var(--border)"></div>
+        <div><div style="font-size:11px;color:var(--text-muted);margin-bottom:4px">Source</div><div style="font-size:13px;font-weight:500;color:var(--text)">Molly Graham, Glue Club</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 2: Peakon -->
+  <div class="slide" id="s1">
+    <div class="sh">
+      <div class="stag">01 — Our data</div>
+      <div class="stitle">What Peakon is telling us</div>
+      <div class="ssub">A few comments from the past months that made us stop and think.</div>
+    </div>
+    <div class="sb">
+      <div class="card"><p class="quote">"Most changes are communicated ex post and the rationale behind it is almost never clear."</p></div>
+      <div class="card"><p class="quote">"I see a lot of short-term strategy but very little visibility into the medium term."</p></div>
+      <div class="card"><p class="quote">"Sometimes I do not know what I am supposed to do. Planning execution of the strategy seems poor."</p></div>
+      <div class="row">
+        <div class="bar c"></div>
+        <div style="font-size:14px;color:var(--text);line-height:1.6">These comments sting a little. And they should, because they're telling us something real, and that we've been trying to address, but still, there's more work to do.<br><br><span style="color:var(--text-sec)">Worth being precise: as we shared in the last Peakon Digest, what's driving these scores is not a single thing. It's a mix of uncertainty about financial results, discomfort with the pace of change, and in some cases disagreement with specific decisions. These are different problems that call for different responses.</span></div>
+      </div>
+    </div>
+    <div class="ft"><div class="fl">Beefree Culture Corner</div><div class="fr">01 / 05</div></div>
+  </div>
+
+  <!-- SLIDE 3: Work Whiplash -->
+  <div class="slide" id="s2">
+    <div class="sh">
+      <div class="stag">02 — The problem</div>
+      <div class="stitle">Work whiplash</div>
+      <div class="ssub">It has a name. And it's not unique to Beefree.</div>
+    </div>
+    <div class="sb">
+      <div class="hbox">
+        <div style="font-size:13px;font-weight:600;color:var(--text);margin-bottom:8px">What is it?</div>
+        <div style="font-size:14px;color:var(--text-sec);line-height:1.6">Work whiplash is what happens when change occurs without communication. It's the gap between what leadership knows and what everyone else knows, and it's where wasted time, frustration, and disengagement get manufactured.</div>
+      </div>
+      <div class="row" style="flex:1;align-items:flex-start">
+        <div class="bar"></div>
+        <div style="font-size:15px;color:var(--text);line-height:1.7;font-style:italic">"One of the most demoralizing things that can happen to someone at work is spending weeks pushing something uphill, only to find out the strategy changed, the project no longer matters, or another team was quietly working on the same thing."<br><br><span style="font-size:13px;font-weight:500;font-style:normal;color:var(--text-muted)">Molly Graham, Glue Club</span></div>
+      </div>
+      <div class="g2">
+        <div class="card">
+          <div class="ct">Not malicious</div>
+          <div class="cb">It happens because leadership moves fast and communication is harder than it looks, not because anyone meant harm.</div>
+        </div>
+        <div class="card">
+          <div class="ct">A threshold moment</div>
+          <div class="cb">When a company passes ~50 people, the default must flip: from "people know" to "people probably don't know."</div>
+        </div>
+      </div>
+    </div>
+    <div class="ft"><div class="fl">Beefree Culture Corner</div><div class="fr">02 / 05</div></div>
+  </div>
+
+  <!-- SLIDE 4: Human side -->
+  <div class="slide" id="s3">
+    <div class="sh">
+      <div class="stag">03 — The human side</div>
+      <div class="stitle">What it feels like, and what to do with it</div>
+      <div class="ssub">Being nimble is a strength. But we need to pair that ask with honesty about what change costs.</div>
+    </div>
+    <div class="sb">
+      <div class="row">
+        <div class="bar c"></div>
+        <div style="font-size:14px;color:var(--text);line-height:1.6">Uncertainty, shifting priorities, decisions you didn't see coming: these feelings are normal. You might remember Bob from the retreat, that anxious feeling that chews on your leg when things move fast. Bob is not you. Naming it makes it manageable.</div>
+      </div>
+      <div class="hbox">
+        <div style="font-size:13px;font-weight:600;color:var(--text);margin-bottom:6px">Shared Pool of Meaning</div>
+        <div style="font-size:13px;color:var(--text-sec);line-height:1.6">We each enter every conversation with our own experiences, opinions, and blind spots. When we work in the open and make it genuinely safe to contribute, that pool grows, and the better the decisions that come out of it.</div>
+      </div>
+      <div class="card">
+        <div class="ct">What this asks of all of us</div>
+        <div class="cb">Don't sit with the uncertainty alone. Ask. Share your perspective. The goal isn't to pretend the fog isn't there, it's to walk into it together.</div>
+      </div>
+    </div>
+    <div class="ft"><div class="fl">Beefree Culture Corner</div><div class="fr">03 / 05</div></div>
+  </div>
+
+  <!-- SLIDE 5: Context not control -->
+  <div class="slide" id="s4">
+    <div class="sh">
+      <div class="stag">04 — The response</div>
+      <div class="stitle">Context, not control</div>
+      <div class="ssub">One question. Ask it every time.</div>
+    </div>
+    <div class="sb">
+      <div class="card" style="background:var(--uv);border-color:var(--uv)">
+        <div style="font-size:18px;font-weight:600;color:#fff;line-height:1.4">"Who is actively working on something that this affects, and do they know already?"</div>
+        <div style="font-size:13px;color:rgba(255,255,255,0.7);margin-top:8px">Not at the next meeting. Not in the quarterly update. Today.</div>
+      </div>
+      <div class="g2">
+        <div class="card">
+          <div class="ct">We've introduced this before</div>
+          <div class="cb">We introduced the concept of "context, not control" at the 2024 retreat, and it's always good to remember it, because the data says we need to.</div>
+        </div>
+        <div class="card">
+          <div class="ct">A shared responsibility</div>
+          <div class="cb">This isn't only on leadership. Each of us, when we know something a colleague doesn't and it affects them, has the responsibility to close that gap.</div>
+        </div>
+      </div>
+    </div>
+    <div class="ft"><div class="fl">Beefree Culture Corner</div><div class="fr">04 / 05</div></div>
+  </div>
+
+  <!-- SLIDE 6: What we're doing -->
+  <div class="slide" id="s5">
+    <div class="sh">
+      <div class="stag">05 — What we're doing</div>
+      <div class="stitle">Work in progress</div>
+      <div class="ssub">It's not solved. But we're working on it.</div>
+    </div>
+    <div class="sb">
+      <div style="display:flex;flex-direction:column;gap:12px;flex:1">
+        <div class="card" style="display:flex;gap:16px;align-items:flex-start">
+          <div class="snum">1</div>
+          <div>
+            <div class="ct">Monthly business updates</div>
+            <div class="cb">We're working to make them less one-way and more of a real conversation, better engagement, better viewership, more interaction.</div>
+          </div>
+        </div>
+        <div class="card" style="display:flex;gap:16px;align-items:flex-start">
+          <div class="snum">2</div>
+          <div>
+            <div class="ct">Explaining the why, not just the what</div>
+            <div class="cb">When decisions are made or priorities shift, we want to communicate the reasoning, not just the outcome.</div>
+          </div>
+        </div>
+        <div class="card" style="display:flex;gap:16px;align-items:flex-start">
+          <div class="snum c">3</div>
+          <div>
+            <div class="ct">You</div>
+            <div class="cb">Next time something changes in your world, tell the people it affects. Don't wait for the all-hands. Work whiplash is everyone's problem to solve.</div>
+          </div>
+        </div>
+      </div>
+      <div style="background:var(--uv);border-radius:var(--rs);padding:16px 20px">
+        <div style="font-size:13px;color:rgba(255,255,255,0.9);line-height:1.6">Work whiplash is, at its core, wasted time. And people's time is the most valuable thing we have as an organization.<br><br><span style="color:rgba(255,255,255,0.75);font-style:italic">"If our strategy is not clear, ask for clarifications. If you disagree with elements of our strategy, voice your opinion."</span></div>
+      </div>
+    </div>
+    <div class="ft"><div class="fl">Beefree Culture Corner</div><div class="fr">05 / 05</div></div>
+  </div>
+
+</div>
+
+<script>
+const n=6;let c=0;
+const de=document.getElementById('dots'),ce=document.getElementById('ctr');
+for(let i=0;i<n;i++){const d=document.createElement('div');d.className='dot'+(i===0?' on':'');d.onclick=()=>gt(i);de.appendChild(d);}
+function gt(x){document.getElementById('s'+c).classList.remove('on');de.children[c].classList.remove('on');c=x;document.getElementById('s'+c).classList.add('on');de.children[c].classList.add('on');ce.textContent=(c+1)+' / '+n;document.getElementById('prev').disabled=c===0;document.getElementById('next').disabled=c===n-1;}
+function go(d){if(c+d>=0&&c+d<n)gt(c+d);}
+document.getElementById('prev').disabled=true;
+document.addEventListener('keydown',e=>{if(e.key==='ArrowRight')go(1);if(e.key==='ArrowLeft')go(-1);});
+</script>
