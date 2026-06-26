@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Lightning Talks — TGIF</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Inter', -apple-system, sans-serif;
+    background: #EEEAF8;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 24px;
+  }
+
+  .nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 900px;
+    margin-bottom: 16px;
+  }
+  .nav-dots { display: flex; gap: 8px; align-items: center; }
+  .nav-dot { width: 8px; height: 8px; border-radius: 50%; background: #c4b8ff; cursor: pointer; transition: all 0.2s; }
+  .nav-dot.active { background: #6B4EFF; transform: scale(1.2); }
+  .nav-arrows { display: flex; gap: 8px; }
+  .nav-btn {
+    background: none; border: 1.5px solid #6B4EFF; color: #6B4EFF;
+    border-radius: 20px; padding: 5px 18px; font-size: 12px; font-weight: 700;
+    cursor: pointer; transition: all 0.2s; font-family: 'Inter', sans-serif;
+  }
+  .nav-btn:hover { background: #6B4EFF; color: white; }
+  .nav-btn:disabled { opacity: 0.3; cursor: default; }
+
+  .slide {
+    display: none;
+    background: white;
+    border-radius: 20px;
+    padding: 48px 56px;
+    width: 100%;
+    max-width: 900px;
+    min-height: 520px;
+    flex-direction: column;
+    justify-content: flex-start;
+    box-shadow: 0 2px 24px rgba(107,78,255,0.07);
+  }
+  .slide.active { display: flex; }
+
+  .card-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 36px;
+  }
+  .bee-logo {
+    width: 36px; height: 36px; border-radius: 10px;
+    background: #6B4EFF; color: white;
+    font-size: 16px; font-weight: 900;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .card-header-text { font-size: 15px; font-weight: 500; color: #555; }
+
+  .slide-tag { font-size: 11px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: #6B4EFF; margin-bottom: 14px; }
+  .slide-title { font-size: 52px; font-weight: 900; color: #0d0d0d; line-height: 1.0; margin-bottom: 20px; letter-spacing: -0.03em; }
+  .slide-title em { color: #6B4EFF; font-style: normal; }
+  .slide-subtitle { font-size: 18px; color: #888; font-style: italic; font-weight: 400; line-height: 1.5; max-width: 560px; }
+
+  .body-text { font-size: 16px; color: #555; line-height: 1.7; max-width: 600px; margin-bottom: 16px; }
+  .body-text strong { color: #6B4EFF; font-weight: 700; }
+
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; }
+  .col-label { font-size: 10px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: #6B4EFF; margin-bottom: 14px; }
+
+  .risk-item { display: flex; align-items: flex-start; gap: 10px; margin-bottom: 11px; }
+  .risk-dot { width: 7px; height: 7px; border-radius: 50%; background: #6B4EFF; flex-shrink: 0; margin-top: 6px; }
+  .risk-text { font-size: 14px; color: #333; line-height: 1.55; }
+
+  .pillar-box { background: #F7F5FF; border-radius: 10px; padding: 16px 18px; margin-bottom: 10px; }
+  .pillar-title { font-size: 11px; font-weight: 700; color: #6B4EFF; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 5px; }
+  .pillar-body { font-size: 13px; color: #444; line-height: 1.5; }
+
+  .format-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-bottom: 16px; }
+  .format-card { background: #F7F5FF; border-radius: 12px; padding: 20px 16px; text-align: center; }
+  .format-num { font-size: 30px; font-weight: 900; color: #6B4EFF; margin-bottom: 6px; }
+  .format-label { font-size: 11px; font-weight: 700; color: #0d0d0d; margin-bottom: 5px; text-transform: uppercase; letter-spacing: 0.07em; }
+  .format-body { font-size: 12px; color: #777; line-height: 1.45; }
+
+  .dates-box { background: #F7F5FF; border-radius: 12px; padding: 20px 24px; }
+  .dates-box-label { font-size: 10px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: #6B4EFF; margin-bottom: 14px; }
+  .dates-inner { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .date-item { text-align: center; }
+  .date-session { font-size: 10px; font-weight: 700; color: #aaa; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 4px; }
+  .date-value { font-size: 18px; font-weight: 900; color: #0d0d0d; }
+  .date-time { font-size: 11px; color: #888; margin-top: 3px; }
+
+  .cta-box { background: #F7F5FF; border-radius: 14px; padding: 28px 32px; max-width: 580px; margin-top: 24px; }
+  .cta-text { font-size: 18px; font-weight: 700; color: #0d0d0d; line-height: 1.5; margin-bottom: 12px; }
+  .cta-sub { font-size: 13px; color: #888; line-height: 1.55; }
+
+  @media (max-width: 700px) {
+    body { padding: 12px; }
+    .slide { padding: 32px 24px; min-height: auto; }
+    .slide-title { font-size: 34px; }
+    .two-col, .format-row, .dates-inner { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div class="nav">
+  <div class="nav-dots" id="dots"></div>
+  <div class="nav-arrows">
+    <button class="nav-btn" id="prev" onclick="go(-1)">← Prev</button>
+    <button class="nav-btn" id="next" onclick="go(1)">Next →</button>
+  </div>
+</div>
+
+<!-- SLIDE 1 -->
+<div class="slide active" id="s1">
+  <div class="card-header">
+    <div class="bee-logo">B</div>
+    <div class="card-header-text">Beefree People & Culture</div>
+  </div>
+  <div class="slide-tag">TGIF</div>
+  <div class="slide-title">AI Lightning Talks</div>
+  <div class="slide-subtitle">Coming soon.</div>
+</div>
+
+<!-- SLIDE 2 -->
+<div class="slide" id="s2">
+  <div class="card-header">
+    <div class="bee-logo">B</div>
+    <div class="card-header-text">Beefree People & Culture</div>
+  </div>
+  <div class="slide-tag">What we heard at the retreat</div>
+  <div class="slide-title" style="font-size:38px; margin-bottom:20px;">AI is happening.<br>But in silos.</div>
+  <div class="two-col">
+    <div>
+      <div class="col-label">What we found</div>
+      <div class="risk-item"><div class="risk-dot"></div><div class="risk-text">Adoption is often individual or at team level — some are ahead, others feel stuck and behind</div></div>
+      <div class="risk-item"><div class="risk-dot"></div><div class="risk-text">The most sophisticated workflows are not always visible to everyone</div></div>
+      <div class="risk-item"><div class="risk-dot"></div><div class="risk-text">Main barrier: <em>"I don't know where to start"</em> — blank page syndrome</div></div>
+      <div class="risk-item"><div class="risk-dot"></div><div class="risk-text">Experimentation feels like extra work, not part of the job</div></div>
+    </div>
+    <div>
+      <div class="col-label">Our response — three pillars</div>
+      <div class="pillar-box">
+        <div class="pillar-title">Adoption & Experimentation</div>
+        <div class="pillar-body">Meet people where they are. Help everyone take the next step up.</div>
+      </div>
+      <div class="pillar-box">
+        <div class="pillar-title">Organizational Documentation & Governance</div>
+        <div class="pillar-body">Track what gets built. Designate owners and document before sharing company-wide.</div>
+      </div>
+      <div class="pillar-box">
+        <div class="pillar-title">Process-First Automation</div>
+        <div class="pillar-body">Evaluate the process before building. Ask "what could be the options?" before committing.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SLIDE 3 -->
+<div class="slide" id="s3">
+  <div class="card-header">
+    <div class="bee-logo">B</div>
+    <div class="card-header-text">Beefree People & Culture</div>
+  </div>
+  <div class="slide-tag">Why this, why now</div>
+  <div class="slide-title" style="font-size:38px; margin-bottom:24px;">AI enablement is<br>70% change management.</div>
+  <p class="body-text">Tools are an essential part of the AI journey, but that's the start. Helping people get into the right mindset and feel confident experimenting is the real change management work.</p>
+  <p class="body-text">This isn't a new initiative. It's the <strong>"Later" phase</strong> of the Enabling AI program we launched last year — the part where we scale adoption, spread knowledge, and make sure no one gets left behind.</p>
+</div>
+
+<!-- SLIDE 4 -->
+<div class="slide" id="s4">
+  <div class="card-header">
+    <div class="bee-logo">B</div>
+    <div class="card-header-text">Beefree People & Culture</div>
+  </div>
+  <div class="slide-tag">What we're launching</div>
+  <div class="slide-title" style="font-size:38px; margin-bottom:20px;">AI Lightning Talks</div>
+  <div class="format-row">
+    <div class="format-card">
+      <div class="format-num">20'</div>
+      <div class="format-label">Lightning Talk</div>
+      <div class="format-body">Focused showcase on a tool or use case — concrete and practical</div>
+    </div>
+    <div class="format-card">
+      <div class="format-num">+</div>
+      <div class="format-label">Office Hours</div>
+      <div class="format-body">Bring questions, experiments, or half-baked ideas. Matt & Alec will be there</div>
+    </div>
+    <div class="format-card">
+      <div class="format-num">🙌</div>
+      <div class="format-label">For everyone</div>
+      <div class="format-body">Advanced or just starting — come together and learn</div>
+    </div>
+  </div>
+  <div class="dates-box">
+    <div class="dates-box-label">Three sessions confirmed</div>
+    <div class="dates-inner">
+      <div class="date-item">
+        <div class="date-session">Session 1</div>
+        <div class="date-value">July 1</div>
+        <div class="date-time">5:00 PM CET</div>
+      </div>
+      <div class="date-item">
+        <div class="date-session">Session 2</div>
+        <div class="date-value">July 15</div>
+        <div class="date-time">5:00 PM CET</div>
+      </div>
+      <div class="date-item">
+        <div class="date-session">Session 3</div>
+        <div class="date-value">July 29</div>
+        <div class="date-time">5:00 PM CET</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SLIDE 5 -->
+<div class="slide" id="s5">
+  <div class="card-header">
+    <div class="bee-logo">B</div>
+    <div class="card-header-text">Beefree People & Culture</div>
+  </div>
+  <div class="slide-tag">Your turn</div>
+  <div class="slide-title">Show up.<br><span style="color:#6B4EFF;">That's it.</span></div>
+  <div class="cta-box">
+    <div class="cta-text">Find the sessions in the company planner. Bring whatever level you're at. We'll take it from there.</div>
+    <div class="cta-sub">Have ideas for topics you'd love to see covered? Drop them in #using-ai. We're still building the agenda.</div>
+  </div>
+</div>
+
+<script>
+  let cur = 0;
+  const slides = document.querySelectorAll('.slide');
+  const total = slides.length;
+  const dotsEl = document.getElementById('dots');
+
+  for (let i = 0; i < total; i++) {
+    const d = document.createElement('div');
+    d.className = 'nav-dot' + (i === 0 ? ' active' : '');
+    d.onclick = () => goTo(i);
+    dotsEl.appendChild(d);
+  }
+
+  function goTo(n) {
+    slides[cur].classList.remove('active');
+    dotsEl.children[cur].classList.remove('active');
+    cur = n;
+    slides[cur].classList.add('active');
+    dotsEl.children[cur].classList.add('active');
+    document.getElementById('prev').disabled = cur === 0;
+    document.getElementById('next').disabled = cur === total - 1;
+  }
+
+  function go(dir) { if (cur + dir >= 0 && cur + dir < total) goTo(cur + dir); }
+
+  document.addEventListener('keydown', e => {
+    if (e.key === 'ArrowRight' || e.key === 'ArrowDown') go(1);
+    if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') go(-1);
+  });
+
+  document.getElementById('prev').disabled = true;
+</script>
+</body>
+</html>
