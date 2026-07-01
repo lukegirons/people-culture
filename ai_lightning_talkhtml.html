@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Lightning Talk #1</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --crail: #C15F3C;
+    --crail-pale: #F5E6DF;
+    --pampas: #F4F3EE;
+    --cloudy: #B1ADA1;
+    --chocolate: #3b110c;
+    --white: #FFFFFF;
+  }
+  body { font-family: 'Inter', -apple-system, sans-serif; background: var(--pampas); display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 100vh; padding: 24px; }
+  .nav { display: flex; align-items: center; justify-content: space-between; width: 100%; max-width: 960px; margin-bottom: 16px; }
+  .nav-dots { display: flex; gap: 8px; align-items: center; }
+  .nav-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--cloudy); cursor: pointer; transition: all 0.2s; }
+  .nav-dot.active { background: var(--crail); transform: scale(1.2); }
+  .nav-arrows { display: flex; gap: 8px; }
+  .nav-btn { background: none; border: 1.5px solid var(--crail); color: var(--crail); border-radius: 20px; padding: 5px 18px; font-size: 12px; font-weight: 700; cursor: pointer; transition: all 0.2s; font-family: 'Inter', sans-serif; }
+  .nav-btn:hover { background: var(--crail); color: white; }
+  .nav-btn:disabled { opacity: 0.3; cursor: default; }
+  .slide { display: none; background: var(--white); border-radius: 20px; padding: 52px 60px; width: 100%; max-width: 960px; min-height: 540px; flex-direction: column; justify-content: flex-start; box-shadow: 0 2px 32px rgba(59,17,12,0.08); }
+  .slide.active { display: flex; }
+  .card-header { display: flex; align-items: center; gap: 12px; margin-bottom: 36px; }
+  .claude-logo { width: 36px; height: 36px; border-radius: 10px; background: var(--crail); color: white; font-size: 18px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .card-header-text { font-size: 14px; font-weight: 500; color: var(--cloudy); }
+  .slide-tag { font-size: 11px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--crail); margin-bottom: 14px; }
+  .slide-title { font-size: 52px; font-weight: 900; color: var(--chocolate); line-height: 1.0; margin-bottom: 20px; letter-spacing: -0.03em; }
+  .slide-title em { color: var(--crail); font-style: normal; }
+  .slide-subtitle { font-size: 18px; color: var(--cloudy); font-style: italic; font-weight: 400; line-height: 1.5; max-width: 580px; }
+  .body-text { font-size: 16px; color: #555; line-height: 1.7; max-width: 640px; margin-bottom: 16px; }
+  .body-text strong { color: var(--crail); font-weight: 700; }
+  .cards-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin-top: 8px; }
+  .card { background: var(--pampas); border-radius: 12px; padding: 22px; border: 1px solid #E8E4DC; }
+  .card-icon { font-size: 24px; margin-bottom: 10px; }
+  .card-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--crail); margin-bottom: 6px; }
+  .card-body { font-size: 13px; color: #555; line-height: 1.55; }
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; margin-top: 8px; }
+  .col-label { font-size: 10px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--crail); margin-bottom: 14px; }
+  .risk-item { display: flex; align-items: flex-start; gap: 10px; margin-bottom: 11px; }
+  .risk-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--crail); flex-shrink: 0; margin-top: 7px; }
+  .risk-text { font-size: 14px; color: #444; line-height: 1.55; }
+  .highlight-box { background: var(--crail-pale); border-radius: 12px; padding: 22px 26px; margin-top: 16px; border: 1px solid #E8927A; }
+  .highlight-text { font-size: 15px; font-weight: 600; color: var(--chocolate); line-height: 1.55; }
+  .format-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-top: 16px; }
+  .format-card { background: var(--pampas); border-radius: 12px; padding: 20px 16px; text-align: center; border: 1px solid #E8E4DC; }
+  .format-num { font-size: 28px; font-weight: 900; color: var(--crail); margin-bottom: 6px; }
+  .format-label { font-size: 11px; font-weight: 700; color: var(--chocolate); margin-bottom: 5px; text-transform: uppercase; letter-spacing: 0.07em; }
+  .format-body { font-size: 12px; color: #777; line-height: 1.45; }
+  .question-box { background: var(--pampas); border: 1.5px dashed #E8927A; border-radius: 14px; padding: 22px 28px; max-width: 660px; margin-top: 12px; }
+  .question-text { font-size: 18px; font-weight: 700; color: var(--chocolate); line-height: 1.5; }
+  .platform-row { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 20px; }
+  .pill { background: var(--pampas); border: 1.5px solid #E8E4DC; border-radius: 20px; padding: 8px 18px; font-size: 13px; font-weight: 600; color: #555; }
+  .pill.active { background: var(--crail); color: white; border-color: var(--crail); }
+  .prompt-box { background: var(--pampas); border-radius: 12px; padding: 18px 20px; border: 1px solid #E8E4DC; margin-bottom: 12px; font-family: 'Inter', monospace; font-size: 13px; color: #333; line-height: 1.6; }
+  .prompt-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--crail); margin-bottom: 8px; }
+  .cta-box { background: var(--crail-pale); border-radius: 14px; padding: 24px 28px; max-width: 660px; margin-top: 16px; border: 1px solid #E8927A; }
+  .cta-text { font-size: 18px; font-weight: 800; color: var(--chocolate); line-height: 1.4; margin-bottom: 8px; }
+  .cta-sub { font-size: 14px; color: #777; line-height: 1.6; }
+  .emoji-row { display: flex; gap: 16px; margin-top: 20px; flex-wrap: wrap; }
+  .emoji-card { background: var(--pampas); border-radius: 12px; padding: 16px 20px; border: 1px solid #E8E4DC; text-align: center; flex: 1; min-width: 120px; }
+  .emoji-big { font-size: 28px; margin-bottom: 6px; }
+  .emoji-label { font-size: 12px; color: #666; font-weight: 500; line-height: 1.4; }
+  @media (max-width: 700px) {
+    body { padding: 12px; }
+    .slide { padding: 32px 24px; min-height: auto; }
+    .slide-title { font-size: 34px; }
+    .two-col, .cards-grid, .format-row { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div class="nav">
+  <div class="nav-dots" id="dots"></div>
+  <div class="nav-arrows">
+    <button class="nav-btn" id="prev" onclick="go(-1)">← Prev</button>
+    <button class="nav-btn" id="next" onclick="go(1)">Next →</button>
+  </div>
+</div>
+
+<!-- SLIDE 1 — Welcome + Format -->
+<div class="slide active" id="s1">
+  <div class="card-header">
+    <div class="claude-logo">✦</div>
+    <div class="card-header-text">AI Lightning Talk #1 · July 1, 2026</div>
+  </div>
+  <div class="slide-tag">Welcome</div>
+  <div class="slide-title">AI Lightning<br><em>Talks.</em></div>
+  <div class="slide-subtitle" style="margin-bottom: 24px;">Why we're here, and how this works.</div>
+  <div class="format-row">
+    <div class="format-card">
+      <div class="format-num">20'</div>
+      <div class="format-label">Lightning Talk</div>
+      <div class="format-body">Focused content on a tool or use case — that's what we're doing right now</div>
+    </div>
+    <div class="format-card">
+      <div class="format-num">+</div>
+      <div class="format-label">Office Hours</div>
+      <div class="format-body">Open space after — bring questions, try things, get unstuck with Alec and Matt</div>
+    </div>
+    <div class="format-card">
+      <div class="format-num">🙌</div>
+      <div class="format-label">For everyone</div>
+      <div class="format-body">No matter where you are in your AI journey — you belong here</div>
+    </div>
+  </div>
+</div>
+
+<!-- SLIDE 2 — Where are you? -->
+<div class="slide" id="s2">
+  <div class="card-header">
+    <div class="claude-logo">✦</div>
+    <div class="card-header-text">AI Lightning Talk #1 · July 1, 2026</div>
+  </div>
+  <div class="slide-tag">Quick check-in</div>
+  <div class="slide-title" style="font-size:40px; margin-bottom: 24px;">Where are you in<br><em>your AI journey?</em></div>
+  <div class="emoji-row">
+    <div class="emoji-card">
+      <div class="emoji-big">🐣</div>
+      <div class="emoji-label">Just starting — not sure where to begin</div>
+    </div>
+    <div class="emoji-card">
+      <div class="emoji-big">🚶</div>
+      <div class="emoji-label">Using it occasionally, still figuring it out</div>
+    </div>
+    <div class="emoji-card">
+      <div class="emoji-big">🏃</div>
+      <div class="emoji-label">Using it regularly in my work</div>
+    </div>
+    <div class="emoji-card">
+      <div class="emoji-big">🚀</div>
+      <div class="emoji-label">Building things with it, going deep</div>
+    </div>
+  </div>
+  <div class="body-text" style="margin-top: 20px; font-size: 14px; color: #999;">Drop your emoji in the chat 👇 — and by the way: who here already has a Claude license? 🙋</div>
+</div>
+
+<!-- SLIDE 3 — Work Whiplash hook -->
+<div class="slide" id="s3">
+  <div class="card-header">
+    <div class="claude-logo">✦</div>
+    <div class="card-header-text">AI Lightning Talk #1 · July 1, 2026</div>
+  </div>
+  <div class="slide-tag">Picking up from last week's TGIF</div>
+  <div class="slide-title" style="font-size:40px; margin-bottom:20px;">Lead with context,<br><em>not control.</em></div>
+  <div class="body-text">Last week we talked about Work Whiplash — the demoralizing gap between what some people know and what others don't. One of the answers to solving work whiplash is context, not control.</div>
+  <div class="question-box">
+    <div class="question-text">But how do we practically do that — with AI?</div>
+  </div>
+</div>
+
+<!-- SLIDE 4 — What is a Project -->
+<div class="slide" id="s4">
+  <div class="card-header">
+    <div class="claude-logo">✦</div>
+    <div class="card-header-text">AI Lightning Talk #1 · July 1, 2026</div>
+  </div>
+  <div class="slide-tag">What is a Project?</div>
+  <div class="slide-title" style="font-size:40px; margin-bottom:24px;">A persistent space<br><em>with memory.</em></div>
+  <div class="cards-grid">
+    <div class="card">
+      <div class="card-icon">📋</div>
+      <div class="card-label">Instructions</div>
+      <div class="card-body">Fixed guidelines that shape how Claude behaves — tone, role, priorities. Set once, always on.</div>
+    </div>
+    <div class="card">
+      <div class="card-icon">📁</div>
+      <div class="card-label">Files & context</div>
+      <div class="card-body">Upload docs, briefs, data. Claude knows your material without you re-explaining every time.</div>
+    </div>
+    <div class="card">
+      <div class="card-icon">🔗</div>
+      <div class="card-label">Integrations</div>
+      <div class="card-body">Connect Slack, Confluence, Fellow, HubSpot, Gmail — Claude works with your actual data.</div>
+    </div>
+    <div class="card">
+      <div class="card-icon">👥</div>
+      <div class="card-label">Shared</div>
+      <div class="card-body">Share a Project with your team. Everyone works from the same context, in parallel.</div>
+    </div>
+  </div>
+  <div class="platform-row">
+    <div class="pill active">Claude → Projects</div>
+    <div class="pill">ChatGPT → Projects</div>
+    <div class="pill">Gemini → Gems</div>
+  </div>
+</div>
+
+<!-- SLIDE 5 — Shared Projects demo -->
+<div class="slide" id="s5">
+  <div class="card-header">
+    <div class="claude-logo">✦</div>
+    <div class="card-header-text">AI Lightning Talk #1 · July 1, 2026</div>
+  </div>
+  <div class="slide-tag">Live demo</div>
+  <div class="slide-title" style="font-size:40px; margin-bottom:24px;">From personal<br><em>to shared.</em></div>
+  <div class="two-col">
+    <div>
+      <div class="col-label">What Massimo built</div>
+      <div class="risk-item"><div class="risk-dot"></div><div class="risk-text"><strong>Positioning SDK</strong> — built around April Dunford's framework and Beefree's internal product knowledge</div></div>
+      <div class="risk-item"><div class="risk-dot"></div><div class="risk-text">Shared with the whole org — anyone can ask about positioning, win/loss reasoning, competitive angles</div></div>
+      <div class="risk-item"><div class="risk-dot"></div><div class="risk-text">Claude already knows the context. No re-explaining. No starting from zero.</div></div>
+      <div class="col-label" style="margin-top: 20px;">What Alec built</div>
+      <div class="risk-item"><div class="risk-dot"></div><div class="risk-text"><strong>Lead researcher</strong> — his first shared Project, built this week</div></div>
+    </div>
+    <div>
+      <div class="highlight-box">
+        <div class="highlight-text">A shared Project is "leading with context" applied to AI.<br><br>You're not telling people how to use Claude. You're putting the right context in a shared space — and letting everyone work from it autonomously.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SLIDE 6 — Ask Fellow -->
+<div class="slide" id="s6">
+  <div class="card-header">
+    <div class="claude-logo">✦</div>
+    <div class="card-header-text">AI Lightning Talk #1 · July 1, 2026</div>
+  </div>
+  <div class="slide-tag">Before Claude: Ask Fellow</div>
+  <div class="slide-title" style="font-size:40px; margin-bottom:20px;">Building context<br><em>starts earlier.</em></div>
+  <div class="body-text">Context doesn't have to start in Claude. Fellow Channels group meetings by topic — and Ask Fellow can query just that Channel. A focused brainstorm before you even open Claude.</div>
+  <div class="two-col" style="margin-top: 16px;">
+    <div>
+      <div class="col-label">Topic channels</div>
+      <div class="risk-item"><div class="risk-dot"></div><div class="risk-text">Create a Channel per recurring topic — a project, a client, a team ritual</div></div>
+      <div class="risk-item"><div class="risk-dot"></div><div class="risk-text">Drop every related meeting into it</div></div>
+      <div class="risk-item"><div class="risk-dot"></div><div class="risk-text">Ask Fellow — synthesis across all of them in seconds, scoped to just that context</div></div>
+      <div class="col-label" style="margin-top: 20px;">Shortcuts</div>
+      <div class="risk-item"><div class="risk-dot"></div><div class="risk-text">Saved prompts — personal or shared with the whole workspace</div></div>
+      <div class="risk-item"><div class="risk-dot"></div><div class="risk-text">Brag Doc, meeting prep, public speaking feedback — or build your own</div></div>
+    </div>
+    <div>
+      <div class="highlight-box">
+        <div class="highlight-text">In April I attended a conference and recorded the relevant sessions into one Channel. In 10 minutes, I had a full recap synthesized across all of them — no rewatching, no manual notes.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SLIDE 7 — Takeaway prompts -->
+<div class="slide" id="s7">
+  <div class="card-header">
+    <div class="claude-logo">✦</div>
+    <div class="card-header-text">AI Lightning Talk #1 · July 1, 2026</div>
+  </div>
+  <div class="slide-tag">Take these with you</div>
+  <div class="slide-title" style="font-size:38px; margin-bottom:20px;">Copy. Paste.<br><em>Try it today.</em></div>
+  <div class="two-col">
+    <div>
+      <div class="prompt-label">Meeting prep</div>
+      <div class="prompt-box">"Look at my Fellow notes from the last 3 meetings with [person/team]. What are the open threads? What should I bring up today?"</div>
+      <div class="prompt-label">Avoid recency bias</div>
+      <div class="prompt-box">"Based on my Fellow notes from the last 3 months, what has [person] worked on and contributed? Help me write a balanced performance summary."</div>
+    </div>
+    <div>
+      <div class="prompt-label">Build context for a new project</div>
+      <div class="prompt-box">"I'm starting a new project on [topic]. Here's what I know: [paste doc or notes]. Help me identify the key open questions and what context I should gather before starting."</div>
+      <div class="prompt-label">Weekly synthesis</div>
+      <div class="prompt-box">"Look at everything I've worked on this week from my Fellow notes and Confluence activity. Give me a 5-bullet summary of progress, decisions made, and what's still open."</div>
+    </div>
+  </div>
+</div>
+
+<!-- SLIDE 8 — Open question + CTA -->
+<div class="slide" id="s8">
+  <div class="card-header">
+    <div class="claude-logo">✦</div>
+    <div class="card-header-text">AI Lightning Talk #1 · July 1, 2026</div>
+  </div>
+  <div class="slide-tag">Your turn</div>
+  <div class="slide-title">And you?<br><em>How are you using this?</em></div>
+  <div class="body-text" style="margin-top: 8px;">Shared Projects, Fellow Channels, Shortcuts — are you already doing something that points in this direction? We want to hear it.</div>
+  <div class="body-text" style="font-size: 14px; color: #999;">And one more thing: if you don't have Claude yet — you can request it. Just ask your manager. Everyone who's asked so far has gotten it.</div>
+  <div class="cta-box">
+    <div class="cta-text">Office hours start now. 👉</div>
+    <div class="cta-sub">Alec and Matt are in the room. Bring your questions, your half-baked ideas, or just "I don't know where to start." That's the whole point.</div>
+  </div>
+</div>
+
+<script>
+  let cur = 0;
+  const slides = document.querySelectorAll('.slide');
+  const total = slides.length;
+  const dotsEl = document.getElementById('dots');
+  for (let i = 0; i < total; i++) {
+    const d = document.createElement('div');
+    d.className = 'nav-dot' + (i === 0 ? ' active' : '');
+    d.onclick = () => goTo(i);
+    dotsEl.appendChild(d);
+  }
+  function goTo(n) {
+    slides[cur].classList.remove('active');
+    dotsEl.children[cur].classList.remove('active');
+    cur = n;
+    slides[cur].classList.add('active');
+    dotsEl.children[cur].classList.add('active');
+    document.getElementById('prev').disabled = cur === 0;
+    document.getElementById('next').disabled = cur === total - 1;
+  }
+  function go(dir) { if (cur + dir >= 0 && cur + dir < total) goTo(cur + dir); }
+  document.addEventListener('keydown', e => {
+    if (e.key === 'ArrowRight' || e.key === 'ArrowDown') go(1);
+    if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') go(-1);
+  });
+  document.getElementById('prev').disabled = true;
+</script>
+</body>
+</html>
